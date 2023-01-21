@@ -1,0 +1,48 @@
+import React from "react";
+import Axios from "axios";
+import {RepositoryContent} from "./Repository";
+import {useAlert} from "react-alert";
+import {useDispatch} from "react-redux";
+import {updateRepository} from "../../redux/actions/rowsActions";
+
+type Props = {
+    repository: RepositoryContent;
+    database: string;
+};
+
+export const RepositoryCheckbox: React.FC<Props> = ({repository, database}) => {
+    const dispatch = useDispatch();
+    const alert = useAlert();
+
+    /**
+     * When we click on a checkbox, update the repository run property.
+     */
+    function checkboxUpdate() {
+        changeRunToOpposite(repository)
+
+        let url: string = '';
+
+        if (database === 'Repositories') url = 'http://localhost:3001/api/update-run';
+        if (database === 'Map') url = 'http://localhost:3001/api/update-map-run';
+
+        Axios.post(url, {name: repository.link, run: repository.run})
+            .then(() => {
+                dispatch(updateRepository(repository))
+            })
+            .catch(response => {
+                console.log(response)
+                alert.error('Error occurred!');
+            });
+
+        function changeRunToOpposite(repository: RepositoryContent) {
+            repository.run = (repository.run + 1) % 2
+        }
+    }
+
+    return (
+        <input type={'checkbox'} checked={Boolean(repository.run)}
+               style={{transform: 'scale(1.5)'}}
+               onChange={checkboxUpdate}
+        />
+    );
+}

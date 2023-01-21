@@ -1,0 +1,32 @@
+.json-wrap
+  height: 800px
+
+  overflow: auto
+
+  font-size: 11pt
+
+  transition: .3s all
+
+.csv-wrap
+  height: 780px
+  overflow: auto
+
+  /* Scrollbar */
+  &::-webkit-scrollbar-corner
+    background-color: inherit
+
+  &::-webkit-scrollbar
+    height: 12px
+    width: 12px
+
+  &::-webkit-scrollbar-thumb
+    background-color: rgba(54, 95, 103, 0.82)
+    border-radius: 2px
+
+
+  table
+    color: #d1c7c7
+
+    tr
+      &:hover
+        filter: invert(0.08)

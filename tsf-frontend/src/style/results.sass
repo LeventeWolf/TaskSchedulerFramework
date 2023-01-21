@@ -1,0 +1,75 @@
+#results-wrapper
+  margin-top: 2px
+  display: flex
+
+#drawer
+  background-color: rgba(47, 47, 47, 0.55)
+  height: 800px
+  width: 350px
+  padding: 5px 5px
+  box-shadow: 6px 0 6px rgb(0 0 0 / 10%)
+  overflow: auto
+
+  font-family: sans-serif
+
+  $hover-color: #c6538c
+
+  .directory-wrap, .file-wrap
+    margin: 2px 0
+    user-select: none
+
+  .directory-wrap
+    transition: .3s color
+    display: flex
+
+    .directory-arrow
+      width: 20px
+      filter: invert(0.7)
+      user-select: none
+
+    .directory-icon
+      width: 20px
+      margin: 0 4px
+      color: white
+
+
+    &:hover
+      color: white
+      cursor: pointer
+
+      .directory-arrow
+        filter: invert(1)
+
+
+  .file-wrap
+    padding-left: 25px
+    transition: .3s color
+    display: flex
+
+    &:hover
+      cursor: pointer
+      color: #83cbee
+
+
+    .file-icon
+      align-self: center
+      width: 19px
+      height: 19px
+      margin-right: 4px
+      filter: invert(0.9)
+
+
+/* Scrollbar */
+#drawer
+  &::-webkit-scrollbar-track
+
+
+  &::-webkit-scrollbar
+    width: 15px
+
+
+  &::-webkit-scrollbar-thumb
+    background-color: rgba(14, 141, 167, 0.23)
+
+    &:hover
+      background-color: rgba(7, 65, 78, 0.82)

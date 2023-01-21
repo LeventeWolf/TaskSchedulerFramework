@@ -1,0 +1,69 @@
+#file-viewer-wrap
+  width: 100%
+  display: flex
+  flex-direction: column
+  overflow: hidden
+
+  .file-header-scroll-wrap
+    overflow: auto
+
+    /* Scrollbar */
+    &::-webkit-scrollbar
+      height: initial
+
+    &::-webkit-scrollbar-thumb
+      //background-color: rgba(6, 83, 98, 0.82)
+      background-color: #323232
+
+  .file-view-header-wrap
+    display: flex
+    background-color: #323232
+
+
+  .header-tab
+    padding: 5px 10px
+    display: flex
+    align-items: center
+    white-space: nowrap
+
+    .file-icon
+      align-self: center
+      width: 19px
+      height: 19px
+      margin-right: 6px
+      filter: invert(0.9)
+
+    .file-name
+      user-select: none
+
+    &:hover
+      background-color: rgba(4, 22, 38, 0.88)
+
+  .active-tab
+    background-color: rgba(4, 22, 38, 0.88)
+
+
+  .header-close
+    transition: .2s all
+    width: 20px
+    margin-left: 5px
+    align-self: end
+    color: #696767
+
+    &:hover
+      cursor: pointer
+      filter: invert(0.9)
+
+
+// 'Select a file' - Text
+.select-file
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  user-select: none
+  text-shadow: 1px 1px #414141
+
+
+  color: rgb(95, 92, 92)
+  font-size: 20pt
