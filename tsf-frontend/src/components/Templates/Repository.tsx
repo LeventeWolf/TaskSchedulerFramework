@@ -7,6 +7,7 @@ import {Directory, DirectoryContent} from "./Directory";
 import {v4} from "uuid";
 import Axios from "axios";
 import {useAlert} from "react-alert";
+import PriorityDropDown from "../Shared/Dropdown";
 
 // Types
 export interface RepositoryContent extends RowContent {
@@ -85,7 +86,7 @@ export const Repository: React.FC<Props> = ({repository}) => {
         <>
             {/* @ts-ignore */}
             <tr style={{maxHeight: '10px'}} bgcolor={conditionalFormatters[repository.status]} className="repository">
-                <td className={'text-center'}>
+                <td className='text-center' >
                     <RepositoryCheckbox repository={repository} database="Repositories"/>
                 </td>
                 <td>
@@ -95,16 +96,10 @@ export const Repository: React.FC<Props> = ({repository}) => {
                     />
                     <a href={repository.link} target="_blank">{repository.link}</a>
                 </td>
-                <td className="text-center test-fw">{repository.test_framework}</td>
+                <td className="text-center test-fw"><PriorityDropDown /></td>
                 <td className="text-center">{repository.status}</td>
                 <td className="text-center">{repository.time ? repository.time + ' s' : ''}</td>
-                <td className="text-center">{repository.scg}</td>
-                <td className="text-center">{repository.dcg}</td>
-                <td className="text-center">{repository.sm}</td>
-                <td className="text-center">{repository.dm}</td>
-                <td>{repository.inject}</td>
                 <td>{repository.note}</td>
-                <td>{repository.hash}</td>
             </tr>
 
             {directories?.map((directory: any) => {

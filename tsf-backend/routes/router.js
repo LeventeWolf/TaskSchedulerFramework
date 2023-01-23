@@ -89,7 +89,7 @@ router.post("/api/selected-repositories", async (req, res) => {
         generatedRepositories = selectedRepositories;
     } catch (e) {
         console.log(e.toString())
-        return res.status(400).send(e.toString());
+        return res.status(500).send(e.toString());
     }
 
     return res.status(200).send(selectedRepositories);
@@ -120,102 +120,6 @@ router.post("/api/update-run", async (req, res) => {
     }
 
     return res.status(200).send();
-});
-
-// Map
-
-/**
- * Init Map.tsx with all map repositories from MariaDB
- */
-router.get("/api/all-map-repositories", async (req, res) => {
-    const repositories = await DAO.getAllMapRepositories();
-    const rows = makeRows(repositories);
-
-    return res.status(200).send(rows);
-
-    function makeRows(repositories) {
-        const result = []
-
-        repositories.forEach(repository => {
-            const row = {
-                type: 'Repository',
-                content: repository
-            }
-
-            result.push(row);
-        });
-
-        return result
-    }
-});
-
-/**
- * Delete shown directory from local environment
- * */
-router.post("/api/map-delete-directory", async (req, res) => {
-    const repositoryName = req.body.repositoryName;
-    const directoryName = req.body.directoryName;
-
-    fileHandler.deleteRepositoryResultDirectory(repositoryName, directoryName, 'mapping-results')
-
-    return res.status(200).end();
-});
-
-/**
- * Forward selected repositories to GET request
- */
-router.post("/api/selected-map-repositories", async (req, res) => {
-    const {selectedRepositories} = req.body;
-
-    try {
-        generatedMapRepositories = selectedRepositories;
-    } catch (e) {
-        console.log(e.toString())
-        return res.status(400).send(e.toString());
-    }
-
-    return res.status(200).send(selectedRepositories);
-});
-
-/**
- * Forward selected repositories to HCA (Python)
- */
-router.get("/api/generated-map-tasks", async (req, res) => {
-    res.status(200).send(generatedMapRepositories);
-    generatedMapRepositories = [];
-});
-
-/**
- * Update repository's 'run' attribute in database
- */
-router.post("/api/update-map-run", async (req, res) => {
-    try {
-        await DAO.updateMapRunByRepositoryLink(req.body.name, req.body.run)
-    } catch (e) {
-        console.log(e.toString())
-        return res.status(400).send(e.toString());
-    }
-
-    return res.status(200).send();
-});
-
-/**
- * Show current repository results in Frontend
- */
-router.post("/api/activate-map-directory", async (req, res) => {
-    const directory = req.body.directory;
-
-    try {
-        const message = await DAO.updateMapRepository(directory);
-
-        return res.status(200).send(message).end();
-    } catch (e) {
-        console.log('[ROUTER]: Error in activating directory');
-        console.log(e.toString());
-
-        return res.status(200).send('404 - error while activating directory').end();
-    }
-
 });
 
 

@@ -25,11 +25,8 @@ export const Directory: React.FC<Props> = ({directory, repository}) => {
 
     return <tr className="directory" style={{maxHeight: '10px', fontStyle: 'normal'}}>
         <td/>
-        {/* CheckBox */}
         <td style={{paddingLeft: 30}}>
-            {/* Delete Icon */}
             <DirectoryDelete directory={directoryRow} deleteURL={deleteURL} repository={repository}/>
-            {/* Date */}
             <Link to={`/results/${repository.name}/${directory.date}`} className="date-link">
                 <span style={{marginLeft: 10}}>{directory.date}</span>
             </Link>
@@ -38,22 +35,8 @@ export const Directory: React.FC<Props> = ({directory, repository}) => {
             <DirectoryActivate directory={directoryRow} activateURL={activateURL} repository={repository}/>
         </td>
         <td className="text-center">{directory.status ?? '-'}</td>
-        {/* Status */}
         <td className="text-center">{directory.time ? directory.time + ' s' : '-'}</td>
-        {/* Time */}
-        <td className="text-center">{directory.scg ?? '-'}</td>
-        {/* SCG */}
-        <td className="text-center">{directory.dcg ?? '-'}</td>
-        {/* DCG */}
-        <td className="text-center">{directory.sm ?? '-'}</td>
-        {/* SM */}
-        <td className="text-center">{directory.dm ?? '-'}</td>
-        {/* DM */}
-        <td className="text-start">{directory.inject ?? '-'}</td>
-        {/* Where to Inject */}
         <td className="text-start text-warning fw-bold">{directory.note}</td>
-        {/* Note */}
         <td/>
-        {/* Hash */}
     </tr>
 }

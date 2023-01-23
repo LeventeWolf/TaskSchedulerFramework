@@ -1,7 +1,6 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {removeResult} from "../../../redux/actions/resultActions";
-import CloseIcon from "@mui/icons-material/Close";
 import {RootState} from "../../../redux/store";
 import {setActiveResult} from "../../../redux/actions/activeResultActions";
 import FileIcon from "./FileIcon";
@@ -27,7 +26,7 @@ const CloseTab: React.FC<CloseTabProps> = ( { resultFilePath }) => {
         }
     }
 
-    return <CloseIcon onClick={handleClose} className="header-close" />;
+    return <div onClick={handleClose} className="header-close" />;
 }
 
 export const FileTab: React.FC<FileTabProps> = ({resultFilePath}) => {

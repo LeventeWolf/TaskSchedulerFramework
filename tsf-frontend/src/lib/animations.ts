@@ -11,7 +11,7 @@ export function blinkRepository(link: string) {
         row.classList.add('blink');
         // @ts-ignore
         delay(1000).then(() => row?.classList.remove('blink'));
-    } catch (error) {
+    } catch (error: any) {
         console.log(error.toString());
     }
 }

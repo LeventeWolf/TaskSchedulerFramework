@@ -2,7 +2,6 @@ import React from "react";
 
 import styled from "styled-components";
 
-import FolderZipIcon from '@mui/icons-material/FolderZip';
 
 const Center = styled.div`
   display: flex;
@@ -25,7 +24,7 @@ export const ContentDefault: React.FC<props> = ( {extension}) => {
     if (logos['compression'].includes(extension)) {
         return (
             <Center>
-                <FolderZipIcon style={{transform: 'scale(2.0)'}} />
+                <div style={{transform: 'scale(2.0)'}} />
             </Center>
         )
     }

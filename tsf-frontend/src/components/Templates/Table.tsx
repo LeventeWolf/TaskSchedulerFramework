@@ -6,6 +6,7 @@ import {TableHeaderCheckbox} from "./TableHeaderCheckbox";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import { setRows } from "../../redux/actions/rowsActions";
+import {TableEditor} from "../../lib/tableEditor";
 
 // Types
 
@@ -31,10 +32,6 @@ export interface RowContent {
     note: string,
     hash: string,
     active: boolean,
-    scg: number,
-    dcg: number,
-    osm: string,
-    mdm: string,
     repositoryName: string,
     isOpen: boolean
 
@@ -68,18 +65,12 @@ export const Columns = () => {
                 </th>
                 <th>
                     <TableHeaderShowResults />
-                    <span>Repository link</span>
+                    <span>Input (link/path/file/string)</span>
                 </th>
-                <th className="text-center">Testing FW</th>
+                <th className="text-center">Priority</th>
                 <th className="text-center">Status</th>
                 <th className="text-center">Time</th>
-                <th className="text-center">SCG</th>
-                <th className="text-center">DCG</th>
-                <th className="text-center">SM</th>
-                <th className="text-center">DM</th>
-                <th>Where to Inject</th>
                 <th>Note</th>
-                <th>Hash</th>
             </tr>
         </thead>
     )

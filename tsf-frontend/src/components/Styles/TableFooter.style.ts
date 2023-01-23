@@ -8,5 +8,7 @@ export const Footer = styled.div`
   align-items: center;
   justify-content: center;
   
+  gap: 20px;
+  
   //border: 1px solid blue;
 `;

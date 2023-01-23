@@ -9,7 +9,7 @@ function Header() {
             <div className="container-fluid">
                 <a className="navbar-brand js-scroll-trigger">
                     <img src={logo} alt="HMF Logo" width='50px'/>
-                    &nbsp; <span id='navTitle' className='align-middle'>HybridMetricsFramework</span>
+                    &nbsp; <span id='navTitle' className='align-middle'>TaskSchedulerFramework</span>
                 </a>
 
                 <ul className="navbar-nav ml-auto text-uppercase">
