@@ -94,7 +94,7 @@ export const Repository: React.FC<Props> = ({repository}) => {
                                            directories={directories}
                                            setDirectories={setDirectories}
                     />
-                    <a href={repository.link} target="_blank">{repository.link}</a>
+                    <a href={repository.input} target="_blank">{repository.input}</a>
                 </td>
                 <td className="text-center test-fw"><PriorityDropDown /></td>
                 <td className="text-center">{repository.status}</td>
@@ -104,7 +104,7 @@ export const Repository: React.FC<Props> = ({repository}) => {
 
             {directories?.map((directory: any) => {
                 return <Directory directory={directory.content} repository={repository}
-                                  key={repository.link + '@' + directory.content.date}/>
+                                  key={repository.input + '@' + directory.content.date}/>
             })}
         </>
     );
@@ -120,7 +120,7 @@ export function getRepositoryAllResultDirectories(rows: Row[], link: string): Di
     const result: DirectoryRow[] = [];
 
     for (let i = 0; i < rows.length; i++) {
-        if (rows[i].type === 'Repository' && rows[i].content.link === link) {
+        if (rows[i].type === 'Repository' && rows[i].content.input === link) {
             // if last row does not have results break
             if (i === rows.length - 1) return result;
 

@@ -23,9 +23,8 @@ export const RepositoryCheckbox: React.FC<Props> = ({repository, database}) => {
         let url: string = '';
 
         if (database === 'Repositories') url = 'http://localhost:3001/api/update-run';
-        if (database === 'Map') url = 'http://localhost:3001/api/update-map-run';
 
-        Axios.post(url, {name: repository.link, run: repository.run})
+        Axios.post(url, {name: repository.input, run: repository.run})
             .then(() => {
                 dispatch(updateRepository(repository))
             })

@@ -18,8 +18,9 @@ export interface Row {
 }
 
 export interface RowContent {
+    id: number,
     run: number,
-    link: string,
+    input: string,
     time: number,
     name: string,
     test_framework: string,
@@ -83,9 +84,9 @@ export const Rows = () => {
         <tbody>
         {
             rows?.map((row: Row) => {
-                row.content.name = getRepositoryNameFromLink(row.content.link);
+                row.content.name = getRepositoryNameFromLink(row.content.input);
 
-                return <Repository key={row.content.link} repository={row.content}/>;
+                return <Repository key={row.content.id} repository={row.content}/>;
             })
         }
         </tbody>
@@ -127,7 +128,7 @@ export function countCheckboxes(rows: Row[]) {
 export function updateRepository(rows: Row[], response: any, dispatch: any) {
     let rowsCopy: Row[] = [...rows];
     let filteredRow: Row | undefined = rowsCopy.find((row) => {
-        if (row.content.link === response.link) {
+        if (row.content.input === response.input) {
             return row;
         }
     });
@@ -155,7 +156,7 @@ export function updateRepository(rows: Row[], response: any, dispatch: any) {
  * example: https://github.com/example/exampleRepository/ -> exampleRepository
  * @param link
  */
-export function getRepositoryNameFromLink(link: string): string {
-    const temp = link.split('/');
+export function getRepositoryNameFromLink(input: string): string {
+    const temp = input.split('/');
     return temp[temp.length - 2];
 }

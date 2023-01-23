@@ -9,7 +9,7 @@ export const rowsReducer = (rows = [], {type, payload}) => {
             return [...rows, payload];
 
         case RowsActionTypes.REMOVE_ROW:
-            return rows.filter(row => row.link !== payload.link);
+            return rows.filter(row => row.input !== payload.input);
 
         case RowsActionTypes.DESTROY_REPOSITORIES:
             return [];
@@ -18,7 +18,7 @@ export const rowsReducer = (rows = [], {type, payload}) => {
             const rowsCopy = [...rows];
 
             for (let row of rowsCopy) {
-                if (row.content.link === payload.link) {
+                if (row.content.input === payload.input) {
                     row.content = payload;
                 }
             }

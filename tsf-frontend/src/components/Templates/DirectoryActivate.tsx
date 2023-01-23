@@ -40,7 +40,7 @@ export const DirectoryActivate: React.FC<Props> = ({directory, activateURL, repo
             activateDirectory(directory);
 
             updateRepositoryDataToActive();
-            blinkRepository(directory.content.link);
+            blinkRepository(directory.content.input);
 
             repository.setDirectories(directoriesCopy)
         }

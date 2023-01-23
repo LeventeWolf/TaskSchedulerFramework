@@ -5,7 +5,7 @@ const pool = createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'HybridMetricsFramework'
+    database: 'TaskSchedulerFramework'
 });
 
 

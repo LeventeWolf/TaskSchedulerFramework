@@ -33,7 +33,7 @@ function readFolders(repository, resultDirectory) {
             statistics = {
                 from: 'hca',
                 date: directory.name,
-                link: repository.link,
+                input: repository.input,
                 name: repository.name,
                 note: 'statistics not found'
             }
