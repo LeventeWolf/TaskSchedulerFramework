@@ -4,6 +4,7 @@ import {TasksTable} from "./TasksTable";
 import {Footer} from "../Styles/TableFooter.style";
 import {ButtonStyle} from "../Styles/GenerateButton.style";
 import '../../style/tableStyle.sass';
+import {StartTasks} from "./StartTasks";
 
 const ws = new WebSocket('ws://localhost:8000/')
 
@@ -23,6 +24,10 @@ export default function Tasks() {
 
                 <ButtonStyle>
                     <GenerateMoreTasks/>
+                </ButtonStyle>
+
+                <ButtonStyle>
+                    <StartTasks/>
                 </ButtonStyle>
 
                 {/*<DeleteTasksWrapper>*/}

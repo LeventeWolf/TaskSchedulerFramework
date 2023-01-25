@@ -4,7 +4,7 @@ const fileHandler = require("../lib/fileHandler");
 const DAO = new mainDAO();
 
 let generatedRepositories = [];
-let generatedMapRepositories = [];
+let taskQueue = [];
 
 // General
 
@@ -87,6 +87,7 @@ router.post("/api/selected-repositories", async (req, res) => {
     try {
         selectedRepositories.forEach(repository => repository.content.status = 'Waiting for worker...')
         generatedRepositories = selectedRepositories;
+        taskQueue = [...selectedRepositories];
     } catch (e) {
         console.log(e.toString())
         return res.status(500).send(e.toString());
@@ -129,6 +130,15 @@ router.get("/api/generated-tasks", async (req, res) => {
     return res.status(200).send(generatedRepositories);
 });
 
+router.get("/task", async (req, res) => {
+    const task = taskQueue.shift();
+
+    return res.status(200).send(task);
+});
+
+router.get("/task-queue", async (req, res) => {
+    return res.status(200).send(taskQueue);
+});
 
 // Table
 
@@ -215,6 +225,25 @@ router.post("/api/file/csv", async (req, res) => {
         console.log(e.toString())
         return res.status(400).send(e.toString());
     }
+})
+
+// Start tasks
+
+
+router.post("/start-tasks", async (req, res) => {
+    const { exec } = require("child_process");
+
+    exec("node ../tsf-worker/worker.js", (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+    });
 })
 
 
