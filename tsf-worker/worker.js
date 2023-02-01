@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {StopWatch} from "stopwatch-node";
+import mainScript from "./scripts/main.js";
 
 async function getTask() {
     try {
@@ -11,38 +12,61 @@ async function getTask() {
     }
 }
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const stopWatch = new StopWatch('sw');
 
-async function main() {
-    const task = await getTask();
-
-    if (task === '') {
-        console.log('[WORKER_1] No more tasks!');
-        return;
+async function workOnTask(task) {
+    if (stopWatch.isRunning()) {
+        stopWatch.stop();
+    } else {
+        stopWatch.start(task.content.input);
     }
-
-    stopWatch.start(task.content.input);
 
     let response = {
         from: 'worker_1',
-        input: task.content.input
+        input: task.content.input,
+        status: 'Running...'
     };
-    await axios.post('http://localhost:3001/api/generated-tasks-updater', {...response, status: 'Running...'},)
-    console.log(`[WORKER_1] Started working on input: ${task.content.input}`);
 
-    // main();
-    await delay(2000);
 
-    stopWatch.stop();
+    await axios.post('http://localhost:3001/api/generated-tasks-updater', response)
+    console.log(`Started working on input: ${task.content.input}`);
 
-    await axios.post('http://localhost:3001/api/generated-tasks-updater', {
-        ...response,
-        status: 'Finished',
-        time: millisToMinutesAndSeconds(stopWatch.getTotalTime())
-    },)
-    console.log(`[WORKER_1] Finished!`);
+    let result;
+
+    response.status = 'Finished'
+
+    try {
+        result = await mainScript(task.content.input);
+        console.log(`The result of the task is: "${result}"`);
+    } catch (e) {
+        response.status = 'Error';
+        result = e.message;
+        console.log(`Error occured!`);
+    } finally {
+        if (stopWatch.isRunning()) stopWatch.stop();
+
+        await axios.post('http://localhost:3001/api/generated-tasks-updater', {
+            ...response,
+            note: result,
+            time: millisToMinutesAndSeconds(stopWatch.getTotalTime())
+        },)
+    }
+
+
+    console.log(`Finished!`);
+}
+
+async function main() {
+    let task;
+
+    do {
+        task = await getTask();
+        if (task === '') break;
+        await workOnTask(task);
+    } while(task !== '');
+
+    console.log('No more tasks!');
 }
 
 function millisToMinutesAndSeconds(millis) {

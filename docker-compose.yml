@@ -1,0 +1,17 @@
+version: '3.7'
+
+networks:
+  default:
+    name: tsf
+
+
+services:
+
+  tsf-worker:
+#    restart: on-failure
+    volumes:
+      - ./tsf-worker:/app
+      - ./scripts:/app/scripts
+    network_mode: "host"
+    build:
+      context: ./tsf-worker
