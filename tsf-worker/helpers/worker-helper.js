@@ -1,8 +1,8 @@
 import {StopWatch} from "stopwatch-node";
 import axios from "axios";
-import {millisToMinutesAndSeconds} from "./util.js";
 import mainScript from "../scripts/main.js";
 import postScript from "../scripts/post.js";
+import preScript from "../scripts/pre.js";
 
 const stopWatch = new StopWatch('sw');
 
@@ -13,6 +13,7 @@ export async function workOnTask(task) {
     console.log(`Started working on input: ${input}`);
 
     try {
+        await runTask(input, preScript, 'Pre');
         await runTask(input, mainScript, 'Main');
         await runTask(input, postScript, 'Post');
 

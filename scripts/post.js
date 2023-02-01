@@ -1,8 +1,7 @@
 import exec from "await-exec";
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 export default async function post(input) {
-    await exec(`cd results/node-floody && npm install`);
+    const repositoryName = input.split('/').slice(-2)[0];
+    await exec(`cd results/${repositoryName} && npm install`);
     return 'Npm install ok!'
 }
