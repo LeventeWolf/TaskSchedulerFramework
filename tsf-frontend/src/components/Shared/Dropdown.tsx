@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Axios from "axios";
+import {RepositoryContent} from "../Templates/Repository";
+import {useAlert} from "react-alert";
 
-function PriorityDropDown() {
-    const [selectedValue, setSelectedValue] = useState('Medium');
+function PriorityDropDown({input, priority}) {
+    const [selectedValue, setSelectedValue] = useState(priority);
+    const alert = useAlert();
 
     const backgroundColor = {
         "High": "danger",
@@ -10,8 +14,15 @@ function PriorityDropDown() {
         "Low": "warning",
     }
 
-    function handleDropdownSelect(selectedPriority: any) {
-        setSelectedValue(selectedPriority);
+    function handleDropdownSelect(priority: any) {
+        Axios.post('http://localhost:3001/api/update-priority', {input, priority})
+            .then(() => {
+                setSelectedValue(priority);
+            })
+            .catch(response => {
+                console.log(response)
+                alert.error('Error occurred!');
+            });
     }
 
     return (

@@ -23,6 +23,16 @@ class DAO {
         console.log("[DATABASE] Update: " + input + " | run -> " + run);
     }
 
+    async updatePriorityByRepositoryLink(input, priority) {
+        const query = `UPDATE Repositories
+                       SET priority = '${priority}'
+                       WHERE input = '${input}'`;
+
+        await db.pool.query(query)
+
+        console.log("[DATABASE] Update: " + input + " | priority -> " + priority);
+    }
+
     async updateActiveDirectory(directory) {
         console.log(`[DATABASE] directory date: ${directory.date}`)
 

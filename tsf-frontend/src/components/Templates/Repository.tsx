@@ -96,10 +96,10 @@ export const Repository: React.FC<Props> = ({repository}) => {
                     />
                     <a href={repository.input} target="_blank">{repository.input}</a>
                 </td>
-                <td className="text-center test-fw"><PriorityDropDown /></td>
+                <td className="text-center"><PriorityDropDown input={repository.input} priority={repository.priority} /></td>
                 <td className="text-center">{repository.status}</td>
                 <td className="text-center">{repository.time ? repository.time + ' s' : ''}</td>
-                <td>{repository.note}</td>
+                <td className="note">{repository.note}</td>
             </tr>
 
             {directories?.map((directory: any) => {

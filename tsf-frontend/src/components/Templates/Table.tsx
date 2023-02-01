@@ -21,12 +21,11 @@ export interface RowContent {
     id: number,
     run: number,
     input: string,
+    priority: string,
     time: number,
     name: string,
-    test_framework: string,
     status: string,
     date: string,
-    coverage: number,
     sm: number,
     dm: number,
     inject: string,
@@ -71,7 +70,7 @@ export const Columns = () => {
                 <th className="text-center">Priority</th>
                 <th className="text-center">Status</th>
                 <th className="text-center">Time</th>
-                <th>Note</th>
+                <th>Result</th>
             </tr>
         </thead>
     )

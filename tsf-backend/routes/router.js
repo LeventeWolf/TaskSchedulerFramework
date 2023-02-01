@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const mainDAO = require("../dao/main_dao");
 const fileHandler = require("../lib/fileHandler");
+const prioritizeTasks = require("../lib/prioritizer");
 const DAO = new mainDAO();
 
 let generatedRepositories = [];
@@ -87,7 +88,7 @@ router.post("/api/selected-repositories", async (req, res) => {
     try {
         selectedRepositories.forEach(repository => repository.content.status = 'Waiting for worker...')
         generatedRepositories = selectedRepositories;
-        taskQueue = [...selectedRepositories];
+        taskQueue = prioritizeTasks([...selectedRepositories]);
     } catch (e) {
         console.log(e.toString())
         return res.status(500).send(e.toString());
@@ -115,6 +116,17 @@ router.post("/api/activate-directory", async (req, res) => {
 router.post("/api/update-run", async (req, res) => {
     try {
         await DAO.updateRunByRepositoryLink(req.body.name, req.body.run)
+    } catch (e) {
+        console.log(e.toString())
+        return res.status(400).send(e.toString());
+    }
+
+    return res.status(200).send();
+});
+
+router.post("/api/update-priority", async (req, res) => {
+    try {
+        await DAO.updatePriorityByRepositoryLink(req.body.input, req.body.priority)
     } catch (e) {
         console.log(e.toString())
         return res.status(400).send(e.toString());
@@ -231,7 +243,7 @@ router.post("/api/file/csv", async (req, res) => {
 
 
 router.post("/start-tasks", async (req, res) => {
-    const { exec } = require("child_process");
+    const {exec} = require("child_process");
 
     exec("node ../tsf-worker/worker.js", (error, stdout, stderr) => {
         if (error) {
