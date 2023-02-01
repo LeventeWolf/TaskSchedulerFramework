@@ -10,24 +10,16 @@ export default async function main(input) {
 
 // Get input length
 // export default async function main(input) {
-//     try {
 //         await delay(Math.random() * 10000);
 //         return "The length of the input is: " + input.length;
-//     } catch (e) {
-//         throw e;
-//     }
 // }
 
 // Get repo stars
 // import axios from "axios";
 //
 // export default async function main(input) {
-//     try {
-//         const stars = await getStars(input);
-//         return `Number of stars on this repository: ${stars}`;
-//     } catch (e) {
-//         throw e;
-//     }
+//     const stars = await getStars(input);
+//     return `Number of stars on this repository: ${stars}`;
 // }
 //
 // async function getStars(repositoryUrl) {
