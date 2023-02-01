@@ -240,7 +240,7 @@ async function readCsv(csvPath) {
     let result;
 
     await csv().fromFile(fullPath)
-        .then(jsonArrayObj => { //when parse finished, result will be emitted here.
+        .then(jsonArrayObj => { //when parse finished, results will be emitted here.
             result = jsonArrayObj;
         })
 

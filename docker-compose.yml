@@ -4,14 +4,32 @@ networks:
   default:
     name: tsf
 
-
 services:
-
   tsf-worker:
-#    restart: on-failure
     volumes:
       - ./tsf-worker:/app
       - ./scripts:/app/scripts
     network_mode: "host"
     build:
       context: ./tsf-worker
+
+#  tsf-frontend:
+#    build:
+#      context: ./tsf-frontend
+
+#  tsf-backend:
+#    build:
+#      context: ./tsf-backend
+
+#  tsf-mongo:
+#  image: docker.io/mongo:5.0
+#    expose:
+#      - 27017
+#    volumes:
+#      - mongo-data:/data/db
+
+#  tsf-db-api:
+#    build:
+#      context: ./tsf-backend
+
+

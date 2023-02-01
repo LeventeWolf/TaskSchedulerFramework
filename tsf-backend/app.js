@@ -26,7 +26,7 @@ const mainDAO = require("./dao/main_dao");
 const DAO = new mainDAO();
 
 /**
- * Update a [HCA] result to /Tasks
+ * Update a [HCA] results to /Tasks
  */
 app.post("/api/generated-tasks-updater", async (req, res) => {
     wss.clients.forEach((client) => {
@@ -41,7 +41,7 @@ app.post("/api/generated-tasks-updater", async (req, res) => {
 
 
 /**
- * Update a [HCA] result to /Map
+ * Update a [HCA] results to /Map
  */
 app.post("/api/generated-map-tasks-updater", async (req, res) => {
     console.log(`[SOCKET] Send Map status: Running... `)

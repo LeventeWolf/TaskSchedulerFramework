@@ -1,6 +1,16 @@
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+import {exec} from "child_process";
 
-// export default async function mainScript(input) {
+export default async function main(input) {
+    exec(`git clone ${input} results`, (error, stdout, stderr) => {
+        if (error) {
+            throw error;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.error(`stderr: ${stderr}`);
+    });
+}
+
+// export default async function main(input) {
 //     try {
 //         await delay(Math.random() * 10000);
 //         return "The length of the input is: " + input.length;
@@ -10,28 +20,28 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 // }
 
 
-import axios from "axios";
-
-export default async function main(input) {
-    try {
-        const stars = await getStars(input);
-        return `Number of stars on this repository: ${stars}`;
-    } catch (e) {
-        throw e;
-    }
-}
-
-async function getStars(repositoryUrl) {
-    let split = repositoryUrl.substring(19, repositoryUrl.length).split("/");
-    const [username, repositoryName, ,] = split;
-
-    const url = `https://api.github.com/repos/${username}/${repositoryName}`;
-    try {
-        const response = await axios.get(url);
-        return response.data.stargazers_count;
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-}
+// import axios from "axios";
+//
+// export default async function main(input) {
+//     try {
+//         const stars = await getStars(input);
+//         return `Number of stars on this repository: ${stars}`;
+//     } catch (e) {
+//         throw e;
+//     }
+// }
+//
+// async function getStars(repositoryUrl) {
+//     let split = repositoryUrl.substring(19, repositoryUrl.length).split("/");
+//     const [username, repositoryName, ,] = split;
+//
+//     const url = `https://api.github.com/repos/${username}/${repositoryName}`;
+//     try {
+//         const response = await axios.get(url);
+//         return response.data.stargazers_count;
+//     } catch (error) {
+//         console.log(error);
+//         throw error;
+//     }
+// }
 

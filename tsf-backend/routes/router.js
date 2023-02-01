@@ -9,7 +9,7 @@ let taskQueue = [];
 
 // General
 
-router.post("/api/show-result-directories", async (req, res) => {
+router.post("/api/show-results-directories", async (req, res) => {
     console.log('[ROUTER] showing run results')
 
     try {
@@ -187,7 +187,7 @@ router.post("/api/update-cell", async (req, res) => {
 
 
 // Results
-router.get("/api/result/:repository/:date", async (req, res) => {
+router.get("/api/results/:repository/:date", async (req, res) => {
     const repository = req.params.repository;
     const date = req.params.date;
 

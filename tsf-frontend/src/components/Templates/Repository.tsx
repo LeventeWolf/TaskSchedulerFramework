@@ -152,7 +152,7 @@ export const Repository: React.FC<Props> = ({repository}) => {
 };
 
 /**
- * Find a repository's all result directory names
+ * Find a repository's all results directory names
  * @param rows all rows
  * @param link The link of the repository (key)
  * @returns list of directory names

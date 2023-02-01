@@ -12,7 +12,7 @@ type Props = {
 
 /**
  * This Component handles the action related to 'Down-Arrow-Icon' click <br>
- * OnClick: Show / Hide the result directories.
+ * OnClick: Show / Hide the results directories.
  * @param repository the repository containing the 'Down-Arrow-Icon'
  * @param showURL send Ajax query to the specified URL to get folders
  * @constructor

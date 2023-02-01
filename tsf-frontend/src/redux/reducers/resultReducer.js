@@ -20,7 +20,7 @@ export const resultReducer = (results = [] , {type, payload}) => {
         case ResultActionTypes.REMOVE_RESULT:
             const resultsCopy = [...results];
 
-            console.log('removing result!');
+            console.log('removing results!');
 
             return resultsCopy.filter(result => result !== payload);
 
