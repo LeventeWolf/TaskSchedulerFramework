@@ -93,12 +93,6 @@ export const Rows = () => {
 };
 
 export const Table = (props: any) => {
-    let tableEditor;
-
-    useEffect(() => {
-        // tableEditor = new TableEditor();
-    })
-
     return (
         <div id="tableContainer">
             <div id="runTableWrapper">

@@ -154,6 +154,16 @@ router.get("/task-queue", async (req, res) => {
 
 // Table
 
+router.post("/api/update-input", async (req, res) => {
+    try {
+        await DAO.updateInput(req.body.id, req.body.input);
+        return res.status(200).send();
+    } catch (e) {
+        console.log(e.toString())
+        return res.status(400).send(e.toString());
+    }
+});
+
 router.post("/api/update-cell", async (req, res) => {
     const data = adjustedColumns(req.body)
 

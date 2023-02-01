@@ -90,6 +90,15 @@ class DAO {
     }
 
 
+    async updateInput(id, input) {
+        const query = `UPDATE Repositories
+                       SET input = '${input}'
+                       WHERE id = '${id}'`;
+
+        await db.pool.query(query)
+
+        console.log("[DATABASE] Update: input -> " + input);
+    }
 }
 
 module.exports = DAO

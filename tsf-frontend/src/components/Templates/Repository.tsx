@@ -8,6 +8,9 @@ import {v4} from "uuid";
 import Axios from "axios";
 import {useAlert} from "react-alert";
 import PriorityDropDown from "../Shared/Dropdown";
+import axios from "axios";
+import {updateRepository} from "../../redux/actions/rowsActions";
+import {useDispatch} from "react-redux";
 
 // Types
 export interface RepositoryContent extends RowContent {
@@ -25,8 +28,35 @@ export type Props = {
  */
 export const Repository: React.FC<Props> = ({repository}) => {
     const alert = useAlert();
+    const dispatch = useDispatch();
 
     const [directories, setDirectories] = useState([]);
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [value, setValue] = useState('');
+
+    function handleChange(event) {
+        setValue(event.target.value);
+    }
+
+    function handleBlur() {
+        setIsEditing(false);
+    }
+
+    const handleKeyDown = async (event) => {
+        if (event.key === "Enter") {
+            setIsEditing(false);
+            await axios.post('http://localhost:3001/api/update-input', {id: repository.id, input: value == '' ? '< >' : value})
+            repository.input = value == '' ? '< >' : value;
+            dispatch(updateRepository(repository))
+        }
+    };
+
+    function handleClick(event) {
+        if (event.target.tagName === 'SPAN') {
+            setIsEditing(true);
+        }
+    }
 
     repository.directories = directories;
     repository.setDirectories = setDirectories;
@@ -89,12 +119,23 @@ export const Repository: React.FC<Props> = ({repository}) => {
                 <td className='text-center' >
                     <RepositoryCheckbox repository={repository} database="Repositories"/>
                 </td>
-                <td>
+                <td onClick={handleClick}>
                     <RepositoryShowResults repository={repository}
                                            directories={directories}
                                            setDirectories={setDirectories}
                     />
-                    <a href={repository.input} target="_blank">{repository.input}</a>
+                    {
+                        isEditing ?
+                            <input className="cellInput"
+                                   defaultValue={repository.input}
+                                   onChange={handleChange}
+                                   autoFocus
+                                   onBlur={handleBlur}
+                                   onKeyDown={handleKeyDown}
+                            />
+                            :
+                            <span>{repository.input}</span>
+                    }
                 </td>
                 <td className="text-center"><PriorityDropDown repository={repository} input={repository.input} priority={repository.priority} /></td>
                 <td className="text-center">{repository.status}</td>
