@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Axios from "axios";
-import {RepositoryContent} from "../Templates/Repository";
 import {useAlert} from "react-alert";
+import {updateRepository} from "../../redux/actions/rowsActions";
+import {useDispatch} from "react-redux";
 
-function PriorityDropDown({input, priority}) {
+function PriorityDropDown({input, priority, repository}) {
     const [selectedValue, setSelectedValue] = useState(priority);
     const alert = useAlert();
+    const dispatch = useDispatch();
 
     const backgroundColor = {
         "High": "danger",
@@ -18,6 +20,7 @@ function PriorityDropDown({input, priority}) {
         Axios.post('http://localhost:3001/api/update-priority', {input, priority})
             .then(() => {
                 setSelectedValue(priority);
+                dispatch(updateRepository(repository))
             })
             .catch(response => {
                 console.log(response)

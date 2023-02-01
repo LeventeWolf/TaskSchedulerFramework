@@ -245,7 +245,10 @@ router.post("/api/file/csv", async (req, res) => {
 router.post("/start-tasks", async (req, res) => {
     const {exec} = require("child_process");
 
-    exec("node ../tsf-worker/worker.js", (error, stdout, stderr) => {
+    const command = `docker-compose up --scale tsf-worker=${req.body.workers}`
+
+    console.log(command);
+    exec(command, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;

@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-function WorkersDropdown() {
-    const [selectedValue, setSelectedValue] = useState(1);
-
+function WorkersDropdown({ selectedValue, setSelectedValue }) {
 
     function handleDropdownSelect(selectedPriority: any) {
         setSelectedValue(selectedPriority);

@@ -1,10 +1,10 @@
 import React from "react";
 import Axios from "axios";
 
-export function StartTasks() {
+export function StartTasks({workers}) {
+
     async function startTasks()  {
-        console.log('Starting tasks!');
-        await Axios.post('http://localhost:3001/start-tasks');
+        await Axios.post('http://localhost:3001/start-tasks', {workers});
     }
 
     return (

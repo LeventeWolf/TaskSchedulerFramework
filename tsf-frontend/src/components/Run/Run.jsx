@@ -20,8 +20,6 @@ export default function Run() {
                 <ButtonStyle>
                     <GenerateTasks/>
                 </ButtonStyle>
-
-                <WorkersDropdown />
             </Footer>
         </div>
     )

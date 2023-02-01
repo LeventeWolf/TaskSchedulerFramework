@@ -96,7 +96,7 @@ export const Repository: React.FC<Props> = ({repository}) => {
                     />
                     <a href={repository.input} target="_blank">{repository.input}</a>
                 </td>
-                <td className="text-center"><PriorityDropDown input={repository.input} priority={repository.priority} /></td>
+                <td className="text-center"><PriorityDropDown repository={repository} input={repository.input} priority={repository.priority} /></td>
                 <td className="text-center">{repository.status}</td>
                 <td className="text-center">{repository.time ? repository.time + ' s' : ''}</td>
                 <td className="note">{repository.note}</td>
