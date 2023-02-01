@@ -9,6 +9,7 @@ services:
     volumes:
       - ./tsf-worker:/app
       - ./scripts:/app/scripts
+      - ./results:/app/results
     network_mode: "host"
     build:
       context: ./tsf-worker

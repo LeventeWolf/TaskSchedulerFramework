@@ -1,15 +1,14 @@
-import {exec} from "child_process";
+import exec from "await-exec";
+
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export default async function main(input) {
-    exec(`git clone ${input} results`, (error, stdout, stderr) => {
-        if (error) {
-            throw error;
-        }
-        console.log(`stdout: ${stdout}`);
-        console.error(`stderr: ${stderr}`);
-    });
+    await exec(`cd results && git clone ${input}`);
+    await delay(2000);
+    return 'Git clone successful!'
 }
 
+// Get input length
 // export default async function main(input) {
 //     try {
 //         await delay(Math.random() * 10000);
@@ -19,7 +18,7 @@ export default async function main(input) {
 //     }
 // }
 
-
+// Get repo stars
 // import axios from "axios";
 //
 // export default async function main(input) {
@@ -44,4 +43,3 @@ export default async function main(input) {
 //         throw error;
 //     }
 // }
-

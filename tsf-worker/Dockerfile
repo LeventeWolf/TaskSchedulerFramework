@@ -5,6 +5,7 @@ WORKDIR /app
 ADD package*.json ./
 
 RUN apk --no-cache add curl
+RUN apk --no-cache add git
 RUN npm install
 
 ADD . .
