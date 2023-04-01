@@ -2,6 +2,7 @@ const router = require("express").Router();
 const mainDAO = require("../dao/main_dao");
 const fileHandler = require("../lib/fileHandler");
 const prioritizeTasks = require("../lib/prioritizer");
+const {readScriptFolders} = require("../lib/fileHandler");
 const DAO = new mainDAO();
 
 let generatedRepositories = [];
@@ -135,6 +136,26 @@ router.post("/api/update-priority", async (req, res) => {
     return res.status(200).send();
 });
 
+router.post("/api/update-script", async (req, res) => {
+    try {
+        await DAO.updateScriptByRepositoryLink(req.body.input, req.body.script)
+    } catch (e) {
+        console.log(e.toString())
+        return res.status(400).send(e.toString());
+    }
+
+    return res.status(200).send();
+});
+
+router.get("/api/scripts", async (req, res) => {
+    try {
+        const scripts = readScriptFolders();
+        res.status(200).send({scripts});
+    } catch (e) {
+        console.log(e.toString())
+        res.status(500).send(e.toString());
+    }
+});
 
 // Task
 

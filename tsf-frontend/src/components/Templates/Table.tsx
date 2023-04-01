@@ -21,6 +21,7 @@ export interface RowContent {
     id: number,
     run: number,
     input: string,
+    script: string,
     priority: string,
     time: number,
     name: string,
@@ -67,6 +68,7 @@ export const Columns = () => {
                     <TableHeaderShowResults />
                     <span>Input (link/path/file/string)</span>
                 </th>
+                <th className="text-center">Script</th>
                 <th className="text-center">Priority</th>
                 <th className="text-center">Status</th>
                 <th className="text-center">Time</th>

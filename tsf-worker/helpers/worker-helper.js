@@ -1,21 +1,35 @@
 import {StopWatch} from "stopwatch-node";
 import axios from "axios";
-import mainScript from "../scripts/main.js";
-import postScript from "../scripts/post.js";
-import preScript from "../scripts/pre.js";
+
+let mainScript;
+let postScript;
+let preScript;
+
+async function importModule(scriptFolder) {
+    try {
+        mainScript = await import(`../scripts/${scriptFolder}/main.js`);
+        postScript = await import(`../scripts/${scriptFolder}/post.js`);
+        preScript = await import(`../scripts/${scriptFolder}/pre.js`);
+    } catch (error) {
+        console.error('import failed');
+        console.log(error);
+    }
+}
 
 const stopWatch = new StopWatch('sw');
 
 export async function workOnTask(task) {
+    await importModule(task.content.script);
+
     const input = task.content.input;
     stopWatch.isRunning() ? stopWatch.stop() : stopWatch.start(input);
 
     console.log(`Started working on input: ${input}`);
 
     try {
-        await runTask(input, preScript, 'Pre');
-        await runTask(input, mainScript, 'Main');
-        await runTask(input, postScript, 'Post');
+        await runTask(input, preScript.default, 'Pre');
+        await runTask(input, mainScript.default, 'Main');
+        await runTask(input, postScript.default, 'Post');
 
         await sendTaskStatus({input, status: 'Finished'});
     } catch (e) {
@@ -29,6 +43,7 @@ export async function workOnTask(task) {
 async function runTask(input, callback, name) {
     try {
         await sendTaskStatus({input, status: `Running... ${name}`});
+
         const result = await callback(input);
         await sendTaskStatus({input, result});
     } catch (e) {

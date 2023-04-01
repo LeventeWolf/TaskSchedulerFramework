@@ -7,10 +7,11 @@ import {Directory, DirectoryContent} from "./Directory";
 import {v4} from "uuid";
 import Axios from "axios";
 import {useAlert} from "react-alert";
-import PriorityDropDown from "../Shared/Dropdown";
+import PriorityDropDown from "../Run/PriorityDropDown";
 import axios from "axios";
 import {updateRepository} from "../../redux/actions/rowsActions";
 import {useDispatch} from "react-redux";
+import ScriptDropDown from "../Run/ScriptDropDown";
 
 // Types
 export interface RepositoryContent extends RowContent {
@@ -137,6 +138,7 @@ export const Repository: React.FC<Props> = ({repository}) => {
                             <span>{repository.input}</span>
                     }
                 </td>
+                <td className="text-center"><ScriptDropDown repository={repository} input={repository.input} script={repository.script} /></td>
                 <td className="text-center"><PriorityDropDown repository={repository} input={repository.input} priority={repository.priority} /></td>
                 <td className="text-center">{repository.status}</td>
                 <td className="text-center">{repository.time ? repository.time + ' s' : ''}</td>

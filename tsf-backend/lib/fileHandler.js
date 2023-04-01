@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const csv = require("csvtojson");
+const { readdirSync } = require('fs');
 
 const STATISTICS_FILE = 'statistics'
 const ABS_PATH = '/home/wolf/Szakdolgozat/HybridMetricsFramework/hca-js-framework/CONFIG.py'
@@ -97,6 +98,16 @@ function convertPythonDictToJSON(data) {
     return JSON.parse(data);
 }
 
+function readScriptFolders() {
+    const scriptFolderPath = '/home/wolf/WebstormProjects/TaskSchedulerFramework/scripts';
+
+    const getDirectories = source =>
+        readdirSync(source, { withFileTypes: true })
+            .filter(dirent => dirent.isDirectory())
+            .map(dirent => dirent.name);
+
+    return getDirectories(scriptFolderPath);
+}
 
 // Results
 
@@ -249,7 +260,8 @@ async function readCsv(csvPath) {
 }
 
 
+
 module.exports = {
     getDirectoryFiles, readFolders, deleteRepositoryResultDirectory, getRepositoryResult,
-    getAllResults, readJSON, readCsv
+    getAllResults, readJSON, readCsv, readScriptFolders
 }

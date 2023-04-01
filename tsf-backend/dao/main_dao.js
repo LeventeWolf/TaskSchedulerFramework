@@ -72,6 +72,15 @@ class DAO {
         return message;
     }
 
+    async updateScriptByRepositoryLink(input, script) {
+        const query = `UPDATE Repositories
+                       SET script = '${script}'
+                       WHERE input = '${input}'`;
+
+        await db.pool.query(query);
+
+        console.log("[DATABASE] Update: " + input + " | script -> " + script);
+    }
 
     // EDITOR
 

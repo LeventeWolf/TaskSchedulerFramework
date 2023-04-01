@@ -6,9 +6,6 @@ import {Footer} from '../Styles/TableFooter.style';
 // Styles
 import {ButtonStyle} from "../Styles/GenerateButton.style";
 import '../../style/tableStyle.sass';
-import WorkersDropdown from "../Shared/WorkersDropdown";
-
-// Redux
 
 export default function Run() {
 
