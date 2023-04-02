@@ -10,7 +10,7 @@ const app = express();
 const APP_PORT = 3001
 const WEBSOCKET_PORT = 8000
 
-const router = require('./routes/router.js');
+const router = require('./src/routes/router.js');
 
 const WebSocket = require('ws');
 const server = http.createServer(app);
@@ -26,10 +26,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.urlencoded({extended: false}));
 app.use(router)
 
-// TODO: Extract to Router
-
-const mainDAO = require("./dao/main_dao");
-const DAO = new mainDAO();
 
 /**
  * Update a [HCA] results to /Tasks
@@ -52,7 +48,7 @@ app.post("/api/generated-tasks-updater", async (req, res) => {
 app.post("/api/generated-map-tasks-updater", async (req, res) => {
     console.log(`[SOCKET] Send Map status: Running... `)
 
-    await DAO.updateMapRepository(req.body);
+    // await DAO.updateMapRepository(req.body);
 
     wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {

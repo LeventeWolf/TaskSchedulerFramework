@@ -1,15 +1,15 @@
 const router = require("express").Router();
 
-const DbApiService = require('../src/services/db/db-api.service');
+const InputDbService = require('../services/db/input-db.service');
 
 router.post("/input/init", async (req, res) => {
-    await DbApiService.initInputs();
+    await InputDbService.initInputs();
 
     res.status(200).send({message: 'Initialized database with 100 inputs!'});
 })
 
 router.get("/api/all-repositories", async (req, res) => {
-    const repositories = await DbApiService.getAllInputs();
+    const repositories = await InputDbService.getAll();
     const rows = makeRows(repositories);
 
     return res.status(200).send(rows);
@@ -28,6 +28,17 @@ router.get("/api/all-repositories", async (req, res) => {
 
         return result
     }
+});
+
+router.post("/api/update-priority", async (req, res) => {
+    try {
+        await InputDbService.updatePriorityById(req.body._id, req.body.priority);
+    } catch (e) {
+        console.log(e.toString())
+        return res.status(400).send(e.toString());
+    }
+
+    return res.status(200).send();
 });
 
 

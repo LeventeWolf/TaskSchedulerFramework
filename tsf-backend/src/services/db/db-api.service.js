@@ -1,31 +1,35 @@
 const axios = require('axios');
-const config = require('../../../config');
-const inputs = require("../../data/inputs");
-
-const instance = axios.create({
-    baseURL: config.dbApiUrl
-});
+const config = require('../../config');
 
 class DbApiService {
 
-    async getAllInputs() {
-        try {
-            const response = await instance.get('/Input');
-            return response.data;
-        } catch (e) {
-            console.log(e);
-            return [];
-        }
+    constructor(Model) {
+        if (this.constructor === DbApiService) throw new Error("DbApiService classes can't be instantiated.");
+
+        this.Model = Model;
+
+        this.instance = axios.create({
+            baseURL: `${config.dbApiUrl}/${Model}`
+        })
 
     }
 
-    async initInputs() {
-        for (const input of inputs) {
-            await instance.post('/Input', input);
-        }
+    async create(model) {
+        const response = await this.instance.post('/', this.Model, model);
+        return response.data;
+    }
+
+    async getAll() {
+        const response = await this.instance.get('/');
+        return response.data;
+    }
+
+    async updateById(id, model) {
+        const response = await this.instance.get(`/${id}`, model);
+        return response.data;
     }
 
 }
 
 
-module.exports = new DbApiService();
+module.exports = DbApiService;

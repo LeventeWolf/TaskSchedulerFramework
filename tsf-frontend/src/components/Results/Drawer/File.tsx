@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Explorer} from "./Drawer";
 import {v4} from 'uuid';
 import arrow from '../../../assets/down-arrow.png';
+import folderIcon from '../../../assets/folder.png';
 import Axios from "axios";
 import FileIcon from "../FileView/FileIcon";
 import {useDispatch} from "react-redux";
@@ -41,7 +42,7 @@ export const File: React.FC<Props> = ({explorer, path}) => {
             <div>
                 <div className="directory-wrap" onClick={handleToggle}>
                     <img className={"directory-arrow"} src={arrow} alt='>'/>
-                    <div className={"directory-icon"}/>
+                    <img className={"directory-icon"} src={folderIcon} alt={'Dir'}/>
                     <span>{explorer.name}</span>
                 </div>
 

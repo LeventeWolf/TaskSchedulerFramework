@@ -34,6 +34,7 @@ services:
       - DB_API_URL=http://tsf-db-api:10010/api/v1
     volumes:
       - ./results:/usr/src/app/results
+      - ./scripts:/usr/src/app/scripts
 
   tsf-db-api:
     container_name: db-api

@@ -5,8 +5,8 @@ import {useAlert} from "react-alert";
 import {updateRepository} from "../../redux/actions/rowsActions";
 import {useDispatch} from "react-redux";
 
-function PriorityDropDown({input, priority, repository}) {
-    const [selectedValue, setSelectedValue] = useState(priority);
+function PriorityDropDown({repository}) {
+    const [selectedValue, setSelectedValue] = useState(repository.priority);
     const alert = useAlert();
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ function PriorityDropDown({input, priority, repository}) {
     }
 
     function handleDropdownSelect(priority: any) {
-        Axios.post('http://localhost:3001/api/update-priority', {input, priority})
+        Axios.post('http://localhost:3001/api/update-priority', {_id: repository._id, priority})
             .then(() => {
                 setSelectedValue(priority);
                 dispatch(updateRepository(repository))

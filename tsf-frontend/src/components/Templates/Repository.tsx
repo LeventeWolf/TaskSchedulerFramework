@@ -47,7 +47,7 @@ export const Repository: React.FC<Props> = ({repository}) => {
     const handleKeyDown = async (event) => {
         if (event.key === "Enter") {
             setIsEditing(false);
-            await axios.post('http://localhost:3001/api/update-input', {id: repository.id, input: value == '' ? '< >' : value})
+            await axios.post('http://localhost:3001/api/update-input', {_id: repository._id, input: value == '' ? '< >' : value})
             repository.input = value == '' ? '< >' : value;
             dispatch(updateRepository(repository))
         }
@@ -138,8 +138,8 @@ export const Repository: React.FC<Props> = ({repository}) => {
                             <span>{repository.input}</span>
                     }
                 </td>
-                <td className="text-center"><ScriptDropDown repository={repository} input={repository.input} script={repository.script} /></td>
-                <td className="text-center"><PriorityDropDown repository={repository} input={repository.input} priority={repository.priority} /></td>
+                <td className="text-center"><ScriptDropDown repository={repository} /></td>
+                <td className="text-center"><PriorityDropDown repository={repository} /></td>
                 <td className="text-center">{repository.status}</td>
                 <td className="text-center">{repository.time ? repository.time + ' s' : ''}</td>
                 <td className="note">{repository.note}</td>

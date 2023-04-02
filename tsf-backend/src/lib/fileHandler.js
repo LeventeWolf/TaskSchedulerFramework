@@ -6,6 +6,7 @@ const { readdirSync } = require('fs');
 const STATISTICS_FILE = 'statistics'
 const ABS_PATH = '/home/wolf/Szakdolgozat/HybridMetricsFramework/hca-js-framework/CONFIG.py'
 const HCA_ABS_PATH = './'
+const scriptFolderPath = './scripts';
 
 /**
  *
@@ -99,8 +100,6 @@ function convertPythonDictToJSON(data) {
 }
 
 function readScriptFolders() {
-    const scriptFolderPath = '/home/wolf/WebstormProjects/TaskSchedulerFramework/scripts';
-
     const getDirectories = source =>
         readdirSync(source, { withFileTypes: true })
             .filter(dirent => dirent.isDirectory())

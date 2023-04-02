@@ -18,7 +18,7 @@ export interface Row {
 }
 
 export interface RowContent {
-    id: number,
+    _id: number,
     run: number,
     input: string,
     script: string,
@@ -86,8 +86,7 @@ export const Rows = () => {
         {
             rows?.map((row: Row) => {
                 row.content.name = getRepositoryNameFromLink(row.content.input);
-
-                return <Repository key={row.content.id} repository={row.content}/>;
+                return <Repository key={row.content._id} repository={row.content}/>;
             })
         }
         </tbody>
