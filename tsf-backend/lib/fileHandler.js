@@ -5,7 +5,7 @@ const { readdirSync } = require('fs');
 
 const STATISTICS_FILE = 'statistics'
 const ABS_PATH = '/home/wolf/Szakdolgozat/HybridMetricsFramework/hca-js-framework/CONFIG.py'
-const HCA_ABS_PATH = '/home/wolf/Szakdolgozat/HybridMetricsFramework/hca-js-framework/'
+const HCA_ABS_PATH = './'
 
 /**
  *

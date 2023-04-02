@@ -26,7 +26,7 @@ const CloseTab: React.FC<CloseTabProps> = ( { resultFilePath }) => {
         }
     }
 
-    return <div onClick={handleClose} className="header-close" />;
+    return <div onClick={handleClose} className="header-close" >X</div>;
 }
 
 export const FileTab: React.FC<FileTabProps> = ({resultFilePath}) => {

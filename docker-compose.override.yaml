@@ -3,6 +3,11 @@ version: "3.5"
 
 services:
 
+#  tsf-frontend:
+#    command: npm run start
+#    volumes:
+#      - ./tsf-frontend:/usr/src/app
+
   tsf-backend:
     command: npm run dev
     volumes:

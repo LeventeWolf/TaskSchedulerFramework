@@ -46,31 +46,6 @@ router.post("/api/show-results-directories", async (req, res) => {
 
 // Run
 
-/**
- * Init Run.jsx with all run repositories from MariaDB
- */
-router.get("/api/all-repositories", async (req, res) => {
-    const repositories = await DAO.getAllRepositories();
-    const rows = makeRows(repositories);
-
-    return res.status(200).send(rows);
-
-    function makeRows(repositories) {
-        const result = []
-
-        repositories.forEach(repository => {
-            const row = {
-                type: 'Repository',
-                content: repository
-            }
-
-            result.push(row);
-        });
-
-        return result
-    }
-});
-
 router.get("/db-api/tasks", async (req, res) => {
     const tasks = await DbApiService.getAllInputs();
 
@@ -215,69 +190,6 @@ router.post("/api/update-cell", async (req, res) => {
     }
 });
 
-
-// Results
-router.get("/api/results/:repository/:date", async (req, res) => {
-    const repository = req.params.repository;
-    const date = req.params.date;
-
-    console.log(`setting explorer for: ${repository}/${date}`)
-
-    try {
-        const results = fileHandler.getRepositoryResult(repository, date);
-        // console.log(results)
-        return res.status(200).send(results);
-    } catch (e) {
-        console.log(e.toString())
-        return res.status(400).send(e.toString());
-    }
-
-});
-
-
-router.get("/api/results", async (req, res) => {
-    try {
-        const results = fileHandler.getAllResults();
-        return res.status(200).send(results);
-    } catch (e) {
-        console.log(e.toString())
-        return res.status(400).send(e.toString());
-    }
-});
-
-
-router.post("/api/results/directory-content", async (req, res) => {
-    try {
-        const results = fileHandler.getDirectoryFiles(req.body.updatedPath);
-        return res.status(200).send(results);
-    } catch (e) {
-        console.log(e.toString())
-        return res.status(400).send(e.toString());
-    }
-})
-
-
-// File extensions
-
-router.post("/api/file/json", async (req, res) => {
-    try {
-        const results = fileHandler.readJSON(req.body.jsonPath);
-        return res.status(200).send(results);
-    } catch (e) {
-        console.log(e.toString())
-        return res.status(400).send(e.toString());
-    }
-})
-
-router.post("/api/file/csv", async (req, res) => {
-    try {
-        const result = await fileHandler.readCsv(req.body.csvPath);
-        return res.status(200).send(result);
-    } catch (e) {
-        console.log(e.toString())
-        return res.status(400).send(e.toString());
-    }
-})
 
 // Start tasks
 

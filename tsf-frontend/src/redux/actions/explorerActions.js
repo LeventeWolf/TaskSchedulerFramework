@@ -4,6 +4,8 @@ import {ExplorerActionTypes} from "../constants/action-types";
 export const fetchExplorer = (url) => async (dispatch) => {
     const response = await Axios.get(url);
 
+    console.log(response.data)
+
     dispatch(setExplorer(response.data));
 };
 

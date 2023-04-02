@@ -7,10 +7,11 @@ networks:
 services:
 #  tsf-frontend:
 #    container_name: frontend
-#    ports:
-#      - "3000:3000"
 #    build:
 #      context: ./tsf-frontend
+#    ports:
+#      - "3000:3000"
+#    stdin_open: true
 
   tsf-worker:
     volumes:
@@ -23,13 +24,16 @@ services:
 
   tsf-backend:
     container_name: backend
+    build:
+      context: ./tsf-backend
     restart: always
     ports:
       - "3001:3001"
+      - "8000:8000"
     environment:
       - DB_API_URL=http://tsf-db-api:10010/api/v1
-    build:
-      context: ./tsf-backend
+    volumes:
+      - ./results:/usr/src/app/results
 
   tsf-db-api:
     container_name: db-api
@@ -45,4 +49,5 @@ services:
   mongo:
     image: mongo:5
     container_name: mongodb
-
+    volumes:
+      - /var/db:/data/db
