@@ -7,5 +7,5 @@ export default async function main(input) {
 
     const result = await exec(`du -sh results/${repositoryName}`);
     await delay(2000);
-    return `File size: ${result}`
+    return `File size: ${result.stdout.trim()}`
 }
