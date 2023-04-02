@@ -1,10 +1,17 @@
-version: '3.7'
+version: '3.5'
 
 networks:
   default:
     name: tsf
 
 services:
+#  tsf-frontend:
+#    container_name: frontend
+#    ports:
+#      - "3000:3000"
+#    build:
+#      context: ./tsf-frontend
+
   tsf-worker:
     volumes:
       - ./tsf-worker:/app
@@ -14,23 +21,28 @@ services:
     build:
       context: ./tsf-worker
 
-#  tsf-frontend:
-#    build:
-#      context: ./tsf-frontend
+  tsf-backend:
+    container_name: backend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - DB_API_URL=http://tsf-db-api:10010/api/v1
+    build:
+      context: ./tsf-backend
 
-#  tsf-backend:
-#    build:
-#      context: ./tsf-backend
+  tsf-db-api:
+    container_name: db-api
+    ports:
+      - "10010:10010"
+    build:
+      context: ./tsf-db-api
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/database
 
-#  tsf-mongo:
-#  image: docker.io/mongo:5.0
-#    expose:
-#      - 27017
-#    volumes:
-#      - mongo-data:/data/db
-
-#  tsf-db-api:
-#    build:
-#      context: ./tsf-backend
-
+  mongo:
+    image: mongo:5
+    container_name: mongodb
 

@@ -3,6 +3,9 @@ const cors = require('cors');
 const http = require('http');
 const path = require("path");
 const bodyParser = require('body-parser')
+const expressWinston = require('express-winston');
+const logger = require('./src/shared/handlers/log.handler');
+
 const app = express();
 const APP_PORT = 3001
 const WEBSOCKET_PORT = 8000
@@ -12,6 +15,9 @@ const router = require('./routes/router.js');
 const WebSocket = require('ws');
 const server = http.createServer(app);
 const wss = new WebSocket.Server({server});
+
+app.use(expressWinston.logger(logger));
+app.use(expressWinston.errorLogger(logger))
 
 app.use(cors({origin: 'http://localhost:3000'}));
 app.use(express.static(path.join(__dirname, "./")));

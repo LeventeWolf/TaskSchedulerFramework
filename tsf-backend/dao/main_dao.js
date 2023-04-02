@@ -10,6 +10,8 @@ class DAO {
             FROM Repositories
         `);
 
+        console.log(rows.splice(0));
+
         return rows.splice(0);
     }
 

@@ -1,0 +1,14 @@
+version: "3.5"
+
+
+services:
+
+  tsf-backend:
+    command: npm run dev
+    volumes:
+      - ./tsf-backend:/usr/src/app
+
+  tsf-db-api:
+    command: npm run dev
+    volumes:
+      - ./tsf-db-api:/usr/src/app
