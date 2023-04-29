@@ -6,7 +6,7 @@ const inputs = [
         time: 0,
         date: new Date(),
         priority: 'High',
-        script: 'script1'
+        script: 'folder_size'
     },
     {
         run: 1,
@@ -15,7 +15,7 @@ const inputs = [
         time: 0,
         date: new Date(),
         priority: 'Medium',
-        script: 'script1'
+        script: 'folder_size'
     },
     {
         run: 1,
@@ -24,7 +24,7 @@ const inputs = [
         time: 13,
         date: new Date(),
         priority: 'Low',
-        script: 'script1'
+        script: 'folder_size'
     },
     {
         run: 0,

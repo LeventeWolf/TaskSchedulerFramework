@@ -18,6 +18,8 @@ export function TasksTable({ws}: any) {
         const response = JSON.parse(ev.data);
         if (response.to !== 'Task') return;
 
+        console.log(response);
+
         updateRepository(rows, response, dispatch)
     };
 

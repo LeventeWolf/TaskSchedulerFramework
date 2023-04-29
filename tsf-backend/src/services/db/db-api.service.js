@@ -25,7 +25,7 @@ class DbApiService {
     }
 
     async updateById(id, model) {
-        const response = await this.instance.get(`/${id}`, model);
+        const response = await this.instance.patch(`/${id}`, model);
         return response.data;
     }
 

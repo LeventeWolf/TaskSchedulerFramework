@@ -7,6 +7,8 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import { setRows } from "../../redux/actions/rowsActions";
 import {TableEditor} from "../../lib/tableEditor";
+import ApiService from "../../api/api.service";
+import Axios from "axios";
 
 // Types
 
@@ -27,15 +29,10 @@ export interface RowContent {
     name: string,
     status: string,
     date: string,
-    sm: number,
-    dm: number,
-    inject: string,
     note: string,
-    hash: string,
     active: boolean,
     repositoryName: string,
     isOpen: boolean
-
 
     // States
     directories: Row[];
@@ -142,7 +139,21 @@ export function updateRepository(rows: Row[], response: any, dispatch: any) {
 
     // blinkRepository(filteredRow.content.link);
 
-    dispatch(setRows(rowsCopy))
+    dispatch(setRows(rowsCopy));
+
+    const formattedInput = {
+        _id: filteredRow.content._id,
+        input: filteredRow.content.input,
+        status: filteredRow.content.status,
+        time: filteredRow.content.time,
+        result: filteredRow.content.note,
+        date: new Date(),
+        priority: filteredRow.content.priority,
+        script: filteredRow.content.script,
+    };
+    
+    ApiService.updateInput(formattedInput);
+    ApiService.saveTask(formattedInput);
 }
 
 /**

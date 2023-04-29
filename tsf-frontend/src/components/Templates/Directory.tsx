@@ -36,7 +36,7 @@ export const Directory: React.FC<Props> = ({directory, repository}) => {
         </td>
         <td className="text-center">{directory.status ?? '-'}</td>
         <td className="text-center">{directory.time ? directory.time + ' s' : '-'}</td>
-        <td className="text-start text-warning fw-bold">{directory.note}</td>
+        <td className="text-start text-warning fw-bold">''</td>
         <td/>
     </tr>
 }

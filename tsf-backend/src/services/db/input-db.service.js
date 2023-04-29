@@ -1,3 +1,4 @@
+
 const DbApiService = require('./db-api.service');
 const inputs = require("../../data/inputs");
 
@@ -16,6 +17,11 @@ class InputDbService extends DbApiService {
 
     async updatePriorityById(id, priority) {
         const response = await this.instance.patch(`/${id}`, {priority});
+        return response.data;
+    }
+
+    async updateRunById(id, run) {
+        const response = await this.instance.patch(`/${id}`, {run});
         return response.data;
     }
 

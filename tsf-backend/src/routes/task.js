@@ -96,17 +96,6 @@ router.post("/api/activate-directory", async (req, res) => {
 
 });
 
-router.post("/api/update-run", async (req, res) => {
-    try {
-        await DAO.updateRunByRepositoryLink(req.body.name, req.body.run)
-    } catch (e) {
-        console.log(e.toString())
-        return res.status(400).send(e.toString());
-    }
-
-    return res.status(200).send();
-});
-
 
 // Task
 

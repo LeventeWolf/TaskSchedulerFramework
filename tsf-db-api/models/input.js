@@ -7,6 +7,7 @@ const inputModel = new Schema({
     input: {type: String, required: true},
     status: {type: String, required: true},
     time: {type: String, required: true},
+    string: {type: String, default: ''},
     date: {type: Date},
     priority: {type: String, required: true},
     script: {type: String, required: true, default: 'default'},

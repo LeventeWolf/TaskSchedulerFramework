@@ -16,13 +16,13 @@ async function importModule(scriptFolder) {
     }
 }
 
-const stopWatch = new StopWatch('sw');
-
 export async function workOnTask(task) {
     await importModule(task.content.script);
 
     const input = task.content.input;
-    stopWatch.isRunning() ? stopWatch.stop() : stopWatch.start(input);
+
+    const stopWatch = new StopWatch('sw');
+    stopWatch.start(input);
 
     console.log(`Started working on input: ${input}`);
 
@@ -31,9 +31,9 @@ export async function workOnTask(task) {
         await runTask(input, mainScript.default, 'Main');
         await runTask(input, postScript.default, 'Post');
 
-        await sendTaskStatus({input, status: 'Finished'});
+        await sendTaskStatus({input, status: 'Finished'}, stopWatch);
     } catch (e) {
-
+        console.log(e);
     } finally {
         if (stopWatch.isRunning()) stopWatch.stop();
     }
@@ -52,7 +52,7 @@ async function runTask(input, callback, name) {
     }
 }
 
-async function sendTaskStatus(response) {
+async function sendTaskStatus(response, stopWatch) {
     let data = {
         from: 'worker_1',
         input: response.input,
@@ -62,7 +62,12 @@ async function sendTaskStatus(response) {
     if (response.time) data.time = response.time;
     if (response.status) data.status = response.status;
 
-    // millisToMinutesAndSeconds(stopWatch.getTotalTime())
+    if (response.status === 'Finished') {
+        stopWatch.stop();
+        const stopWatchTask = stopWatch.getTask(response.input);
+        let totalTime = Math.floor(stopWatchTask?.timeMills / 1000);
+        data.time = totalTime;
+    }
 
     await axios.post('http://localhost:3001/api/generated-tasks-updater', data);
 }
