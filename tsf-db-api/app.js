@@ -9,13 +9,14 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use(methodOverride());
 
-const {Input} = require('./models');
+const {Input, Task} = require('./models');
 
 const connect = require('./connection');
 
 connect();
 
 restify.serve(router, Input);
+restify.serve(router, Task);
 
 app.get('/health', async (req, res) => {
     res.send({ numberOfUsers: await Input.count({}) });

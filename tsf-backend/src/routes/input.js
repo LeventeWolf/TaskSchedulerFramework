@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const InputDbApiService = require("../services/db/input-db.service");
+const InputDbApiService = require("../repository/input.repository");
 
 router.post("/input/init", async (req, res) => {
     await InputDbApiService.initInputs();

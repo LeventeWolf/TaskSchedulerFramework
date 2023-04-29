@@ -3,7 +3,8 @@ const fileHandler = require("../lib/fileHandler");
 const prioritizeTasks = require("../lib/prioritizer");
 const {exec} = require("child_process");
 
-const InputDbApiService = require('../services/db/input-db.service');
+const InputRepository = require('../repository/input.repository');
+const TaskRepository = require('../repository/task.repository');
 const DAO = {};
 
 let generatedRepositories = [];
@@ -45,7 +46,7 @@ router.post("/api/show-results-directories", async (req, res) => {
 // Run
 
 router.get("/db-api/tasks", async (req, res) => {
-    const tasks = await InputDbApiService.getAll();
+    const tasks = await InputRepository.getAll();
 
     return res.status(200).send(tasks);
 });
@@ -112,6 +113,23 @@ router.get("/task", async (req, res) => {
 router.get("/task-queue", async (req, res) => {
     return res.status(200).send(taskQueue);
 });
+
+router.post("/Task/save", async (req, res) => {
+    const task = req.body;
+
+    delete task.input;
+    delete task._id;
+
+    task.result = ' ';
+
+    console.log('Task to create')
+    console.log(task);
+
+    const savedTask = await TaskRepository.create(task);
+
+    return res.status(200).send({message: 'Task saved successful', task: savedTask});
+});
+
 
 // Table
 

@@ -1,12 +1,10 @@
 const axios = require('axios');
-const config = require('../../config');
+const config = require('../config');
 
-class DbApiService {
+class Repository {
 
     constructor(Model) {
-        if (this.constructor === DbApiService) throw new Error("DbApiService classes can't be instantiated.");
-
-        this.Model = Model;
+        if (this.constructor === Repository) throw new Error("Repository classes can't be instantiated.");
 
         this.instance = axios.create({
             baseURL: `${config.dbApiUrl}/${Model}`
@@ -15,7 +13,7 @@ class DbApiService {
     }
 
     async create(model) {
-        const response = await this.instance.post('/', this.Model, model);
+        const response = await this.instance.post('/', model);
         return response.data;
     }
 
@@ -29,7 +27,10 @@ class DbApiService {
         return response.data;
     }
 
+    async delete(id) {
+        await this.instance.delete(`/${id}`);
+    }
 }
 
 
-module.exports = DbApiService;
+module.exports = Repository;

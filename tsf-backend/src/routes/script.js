@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const InputDbApiService = require('../services/db/input-db.service');
+const InputDbApiService = require('../repository/input.repository');
 const {readScriptFolders} = require("../lib/fileHandler");
 
 router.get("/api/scripts", async (req, res) => {

@@ -18,7 +18,7 @@ class ApiService {
     }
 
     async saveTask(input: Input) {
-        await Axios.post(`http://localhost:3001/Task/save`, {_id: input._id, input});
+        await Axios.post(`http://localhost:3001/Task/save`, {inputId: input._id, ...input});
     }
 }
 

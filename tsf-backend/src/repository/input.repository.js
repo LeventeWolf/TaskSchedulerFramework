@@ -1,8 +1,7 @@
+const Repository = require('./repository');
+const inputs = require("../data/inputs");
 
-const DbApiService = require('./db-api.service');
-const inputs = require("../../data/inputs");
-
-class InputDbService extends DbApiService {
+class InputRepository extends Repository {
 
     async initInputs() {
         for (const input of inputs) {
@@ -27,4 +26,4 @@ class InputDbService extends DbApiService {
 
 }
 
-module.exports = new InputDbService('Input');
+module.exports = new InputRepository('Input');
