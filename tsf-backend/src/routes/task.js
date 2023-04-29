@@ -10,38 +10,6 @@ const DAO = {};
 let generatedRepositories = [];
 let taskQueue = [];
 
-// General
-
-router.post("/api/show-results-directories", async (req, res) => {
-    console.log('[ROUTER] showing run results')
-
-    try {
-        const directories = fileHandler.readFolders(req.body.repository, req.body.directoriesPath);
-        const rows = makeRows(directories);
-
-        return res.status(200).send(rows);
-    } catch (error) {
-        res.statusMessage = error.toString();
-        res.status(400).end();
-    }
-
-    function makeRows(directoryNames) {
-        const result = []
-
-        directoryNames.forEach(directory => {
-            directory.active = false;
-
-            const row = {
-                type: 'Directory',
-                content: directory,
-            }
-
-            result.push(row);
-        });
-
-        return result
-    }
-});
 
 // Run
 
@@ -120,8 +88,6 @@ router.post("/Task/save", async (req, res) => {
     delete task.input;
     delete task._id;
 
-    task.result = ' ';
-
     console.log('Task to create')
     console.log(task);
 
@@ -129,6 +95,36 @@ router.post("/Task/save", async (req, res) => {
 
     return res.status(200).send({message: 'Task saved successful', task: savedTask});
 });
+
+router.get("/tasks/:inputId", async (req, res) => {
+    const inputId = req.params.inputId;
+
+    const tasks = await TaskRepository.getTasksByInputId(inputId);
+
+    const rows = makeRows(tasks);
+
+    console.log(rows);
+
+    return res.status(200).send(rows);
+
+    function makeRows(tasks) {
+        const result = []
+
+        tasks.forEach(task => {
+            task.active = false;
+
+            const row = {
+                type: 'Directory',
+                content: task,
+            }
+
+            result.push(row);
+        });
+
+        return result
+    }
+});
+
 
 
 // Table

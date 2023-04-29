@@ -71,13 +71,9 @@ export const Repository: React.FC<Props> = ({repository}) => {
 
     function showDirectories() {
         repository.isOpen = true;
-        Axios.post('http://localhost:3001/api/show-result-directories', {
-            from: 'Run',
-            action: 'showResultDirectories',
-            directoriesPath: 'results',
-            repository,
+        Axios.get(`http://localhost:3001/tasks/${repository._id}`, {
         }).then(response => {
-            showResults(response.data)
+            showResults(response.data);
         }).catch(error => {
             alert.error('Error occurred!');
         });

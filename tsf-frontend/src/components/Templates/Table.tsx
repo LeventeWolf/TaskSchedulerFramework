@@ -32,7 +32,8 @@ export interface RowContent {
     note: string,
     active: boolean,
     repositoryName: string,
-    isOpen: boolean
+    isOpen: boolean,
+    result: string,
 
     // States
     directories: Row[];
@@ -141,7 +142,7 @@ export function updateRepository(rows: Row[], response: any, dispatch: any) {
 
     dispatch(setRows(rowsCopy));
 
-    const formattedInput = {
+    const input = {
         _id: filteredRow.content._id,
         input: filteredRow.content.input,
         status: filteredRow.content.status,
@@ -152,8 +153,13 @@ export function updateRepository(rows: Row[], response: any, dispatch: any) {
         script: filteredRow.content.script,
     };
     
-    ApiService.updateInput(formattedInput);
-    ApiService.saveTask(formattedInput);
+    ApiService.updateInput(input);
+
+    const isFinished = response.time;
+    if (isFinished) {
+        console.log(input.result);
+        ApiService.saveTask(input);
+    }
 }
 
 /**
