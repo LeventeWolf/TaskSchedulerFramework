@@ -1,28 +1,28 @@
 import Axios from "axios";
 import {RowsActionTypes} from "../constants/action-types";
 
-export const fetchRepositories = (url) => async (dispatch) => {
+export const fetchInputs = (url) => async (dispatch) => {
     const response = await Axios.get(url);
 
     dispatch(setRows(response.data));
 };
 
-export const setRows = (repositories) => {
+export const setRows = (inputs) => {
     return {
         type: RowsActionTypes.SET_ROWS,
-        payload: repositories,
+        payload: inputs,
     }
 }
 
-export const destroyRepositories = () => {
+export const destroyInputs = () => {
     return {
-        type: RowsActionTypes.DESTROY_REPOSITORIES,
+        type: RowsActionTypes.DESTROY_INPUTS,
     }
 }
 
-export const updateRepository = (repository) => {
+export const updateInput = (repository) => {
     return {
-        type: RowsActionTypes.UPDATE_REPOSITORY,
+        type: RowsActionTypes.UPDATE_INPUT,
         payload: repository,
     }
 }

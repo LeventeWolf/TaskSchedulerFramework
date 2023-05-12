@@ -15,8 +15,6 @@ type Props = {
 };
 
 export const Directory: React.FC<Props> = ({directory, repository}) => {
-    const deleteURL = 'http://localhost:3001/api/deleteRepository';
-    const activateURL = 'http://localhost:3001/api/activate-directory'
 
     const directoryRow: any = {
         type: 'Directory',
@@ -27,9 +25,9 @@ export const Directory: React.FC<Props> = ({directory, repository}) => {
         <tr className="directory" style={{maxHeight: '10px', fontStyle: 'normal'}}>
             <td />
             <td style={{paddingLeft: 30}}>
-                <DirectoryDelete directory={directoryRow} deleteURL={deleteURL} repository={repository}/>
+                <DirectoryDelete directory={directoryRow} repository={repository}/>
                 <Link to={`/results/${repository.name}/${directory.date}`} className="date-link">
-                    <span style={{marginLeft: 10}}>{directory.date}</span>
+                    {directory.date.split('T')[0]} {directory.date.split('T')[1].split('.')[0]}
                 </Link>
             </td>
             <td className="text-center">{directory.script ?? '-'}</td>

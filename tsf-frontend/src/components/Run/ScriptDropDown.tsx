@@ -3,7 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Axios from "axios";
 import {useAlert} from "react-alert";
 import {useDispatch} from "react-redux";
-import {updateRepository} from "../../redux/actions/rowsActions";
+import {updateInput} from "../../redux/actions/rowsActions";
 import Globals from '../../globals/globals';
 
 function ScriptDropDown({repository}) {
@@ -22,7 +22,7 @@ function ScriptDropDown({repository}) {
         Axios.post('http://localhost:3001/api/update-script', {_id: repository._id, script: selectedScript})
             .then(() => {
                 setSelectedValue(selectedScript);
-                dispatch(updateRepository(repository))
+                dispatch(updateInput(repository))
             })
             .catch(response => {
                 console.log(response)

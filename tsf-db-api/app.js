@@ -19,7 +19,7 @@ restify.serve(router, Input);
 restify.serve(router, Task);
 
 app.get('/health', async (req, res) => {
-    res.send({ numberOfUsers: await Input.count({}) });
+    res.send({ numberOfInput: await Input.count({}) });
 });
 
 app.use(router);

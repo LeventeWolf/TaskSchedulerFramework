@@ -9,7 +9,7 @@ import Axios from "axios";
 import {useAlert} from "react-alert";
 import PriorityDropDown from "../Run/PriorityDropDown";
 import axios from "axios";
-import {updateRepository} from "../../redux/actions/rowsActions";
+import {updateInput} from "../../redux/actions/rowsActions";
 import {useDispatch} from "react-redux";
 import ScriptDropDown from "../Run/ScriptDropDown";
 
@@ -49,7 +49,7 @@ export const Repository: React.FC<Props> = ({repository}) => {
             setIsEditing(false);
             await axios.post('http://localhost:3001/api/update-input', {_id: repository._id, input: value == '' ? '< >' : value})
             repository.input = value == '' ? '< >' : value;
-            dispatch(updateRepository(repository))
+            dispatch(updateInput(repository))
         }
     };
 

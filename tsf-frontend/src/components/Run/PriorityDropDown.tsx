@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Axios from "axios";
 import {useAlert} from "react-alert";
-import {updateRepository} from "../../redux/actions/rowsActions";
+import {updateInput} from "../../redux/actions/rowsActions";
 import {useDispatch} from "react-redux";
 
 function PriorityDropDown({repository}) {
@@ -20,7 +20,7 @@ function PriorityDropDown({repository}) {
         Axios.post('http://localhost:3001/api/update-priority', {_id: repository._id, priority})
             .then(() => {
                 setSelectedValue(priority);
-                dispatch(updateRepository(repository))
+                dispatch(updateInput(repository))
             })
             .catch(response => {
                 console.log(response)

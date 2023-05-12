@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Columns, Rows, updateRepository, Table} from "../Templates/Table";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchRepositories, destroyRepositories} from "../../redux/actions/rowsActions";
+import {fetchInputs, destroyInputs} from "../../redux/actions/rowsActions";
 import { RootState } from "../../redux/store";
 
 export function TasksTable({ws}: any) {
@@ -9,9 +9,9 @@ export function TasksTable({ws}: any) {
     const rows = useSelector((state: RootState) => state.rows)
 
     useEffect(() => {
-        dispatch(fetchRepositories('http://localhost:3001/api/generated-tasks'))
+        dispatch(fetchInputs('http://localhost:3001/api/generated-tasks'))
 
-        return () => {dispatch(destroyRepositories())};
+        return () => {dispatch(destroyInputs())};
     }, []);
 
     ws.onmessage = function (ev: any) {

@@ -11,10 +11,10 @@ export const rowsReducer = (rows = [], {type, payload}) => {
         case RowsActionTypes.REMOVE_ROW:
             return rows.filter(row => row.input !== payload.input);
 
-        case RowsActionTypes.DESTROY_REPOSITORIES:
+        case RowsActionTypes.DESTROY_INPUTS:
             return [];
 
-        case RowsActionTypes.UPDATE_REPOSITORY:
+        case RowsActionTypes.UPDATE_INPUT:
             const rowsCopy = [...rows];
 
             for (let row of rowsCopy) {

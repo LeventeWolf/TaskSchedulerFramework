@@ -7,7 +7,7 @@ function Guide() {
             <div id="container">
                 <h1>Guide</h1>
                 <h2>Run</h2>
-                <p>Select the repositories which will be included in the hybrid analysis by clicking the checkbox</p>
+                <p>Select the inputs which will be included in the analysis by clicking the checkbox</p>
                 <p>After that press the `Generate Tasks` button</p>
                 <p>You will be redirected to Tasks</p>
                 <h2>Tasks</h2>

@@ -31,7 +31,7 @@ app.use(router)
 
 
 /**
- * Update a [HCA] results to /Tasks
+ * Update a [TSF] results to /Tasks
  */
 app.post("/api/generated-tasks-updater", async (req, res) => {
     wss.clients.forEach((client) => {
@@ -44,23 +44,6 @@ app.post("/api/generated-tasks-updater", async (req, res) => {
     return res.status(200).send('ok');
 });
 
-
-/**
- * Update a [HCA] results to /Map
- */
-app.post("/api/generated-map-tasks-updater", async (req, res) => {
-    console.log(`[SOCKET] Send Map status: Running... `)
-
-    // await DAO.updateMapRepository(req.body);
-
-    wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(req.body));
-        }
-    });
-
-    return res.status(200).send('ok');
-});
 
 app.use((err, req, res, next) => {
     errorHandler.handleError(err, res);

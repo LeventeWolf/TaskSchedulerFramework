@@ -4,8 +4,7 @@ const csv = require("csvtojson");
 const { readdirSync } = require('fs');
 
 const STATISTICS_FILE = 'statistics'
-const ABS_PATH = '/home/wolf/Szakdolgozat/HybridMetricsFramework/hca-js-framework/CONFIG.py'
-const HCA_ABS_PATH = './'
+const TSF_ABS_PATH = './'
 const scriptFolderPath = './scripts';
 
 /**
@@ -16,7 +15,7 @@ const scriptFolderPath = './scripts';
  */
 function readFolders(repository, resultDirectory) {
     const results = []
-    const resultDirectoriesPath = path.join(HCA_ABS_PATH, resultDirectory, repository.name)
+    const resultDirectoriesPath = path.join(TSF_ABS_PATH, resultDirectory, repository.name)
 
     const directories = fs.readdirSync(resultDirectoriesPath, {withFileTypes: true});
 
@@ -33,7 +32,7 @@ function readFolders(repository, resultDirectory) {
             console.log('[FH] Statistics not exists: ', directory.name)
             console.log('[FH] Sending back empty statistics')
             statistics = {
-                from: 'hca',
+                from: 'tsf',
                 date: directory.name,
                 input: repository.input,
                 name: repository.name,
@@ -50,21 +49,6 @@ function readFolders(repository, resultDirectory) {
     return results;
 }
 
-function getAllRepositoriesFromCONFIG() {
-    let result;
-
-    fs.readFile(ABS_PATH, 'utf8', (err, data) => {
-        if (err) {
-            console.log('File read failed:', err);
-            return -1;
-        }
-
-        result = convertPythonDictToJSON(data);
-    });
-
-    return result;
-}
-
 /**
  * Delete given folder from local machine
  * @param repositoryName: eg.: ExampleLib
@@ -75,7 +59,7 @@ function deleteRepositoryResultDirectory(repositoryName, directoryDate, resultDi
     console.log(`repository Name: ${repositoryName}`)
     console.log(`directory Date: ${repositoryName}`)
 
-    const targetDirectory = path.join(HCA_ABS_PATH, resultDirectoryName, repositoryName, directoryDate);
+    const targetDirectory = path.join(TSF_ABS_PATH, resultDirectoryName, repositoryName, directoryDate);
 
     fs.rmdirSync(targetDirectory, {recursive: true});
     console.log(`[FH] deleted ${targetDirectory}`);
@@ -120,7 +104,7 @@ function getAllResults() {
         items: []
     }
 
-    const directories = fs.readdirSync(path.join(HCA_ABS_PATH, root), {withFileTypes: true});
+    const directories = fs.readdirSync(path.join(TSF_ABS_PATH, root), {withFileTypes: true});
 
     directories.forEach(directory => {
         const item = {
@@ -146,7 +130,7 @@ function getRepositoryResult(repository, date) {
         items: []
     }
 
-    const directories = fs.readdirSync(path.join(HCA_ABS_PATH, root), {withFileTypes: true});
+    const directories = fs.readdirSync(path.join(TSF_ABS_PATH, root), {withFileTypes: true});
 
     directories.forEach(directory => {
         const item = {
@@ -165,7 +149,7 @@ function getRepositoryResult(repository, date) {
 function getDirectoryFiles(updatedPath) {
     const explorer = [];
 
-    const files = fs.readdirSync(path.join(HCA_ABS_PATH, updatedPath), {withFileTypes: true});
+    const files = fs.readdirSync(path.join(TSF_ABS_PATH, updatedPath), {withFileTypes: true});
 
     files.forEach(file => {
         if (file.isDirectory()) {
@@ -200,7 +184,7 @@ function getAllFiles() {
         items: []
     }
 
-    recursiveWalk(path.join(HCA_ABS_PATH, 'results'), explorer);
+    recursiveWalk(path.join(TSF_ABS_PATH, 'results'), explorer);
 
     return explorer;
 }
@@ -238,14 +222,14 @@ const recursiveWalk = function (dirPath, explorer) {
 }
 
 function readJSON(jsonPath) {
-    const rawdata = fs.readFileSync(path.join(HCA_ABS_PATH, jsonPath));
+    const rawdata = fs.readFileSync(path.join(TSF_ABS_PATH, jsonPath));
     const result = JSON.parse(rawdata);
 
     return result;
 }
 
 async function readCsv(csvPath) {
-    const fullPath = path.join(HCA_ABS_PATH, csvPath)
+    const fullPath = path.join(TSF_ABS_PATH, csvPath)
 
     let result;
 

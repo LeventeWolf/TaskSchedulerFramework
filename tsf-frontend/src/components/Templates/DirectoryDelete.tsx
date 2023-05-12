@@ -4,14 +4,14 @@ import Axios from "axios";
 import {RepositoryContent} from "./Repository";
 import {DirectoryRow} from "./Table";
 import {useAlert} from "react-alert";
+import ApiService from "../../api/api.service";
 
 type Props = {
     directory: DirectoryRow;
     repository: RepositoryContent;
-    deleteURL: string
 };
 
-export const DirectoryDelete: React.FC<Props> = ({directory, deleteURL, repository}) => {
+export const DirectoryDelete: React.FC<Props> = ({directory, repository}) => {
     const alert = useAlert();
 
     /**
@@ -19,12 +19,8 @@ export const DirectoryDelete: React.FC<Props> = ({directory, deleteURL, reposito
      * If succeeded: Remove deleted directory from rows
      */
     function deleteResult(): void {
-        Axios.post(deleteURL, {
-            'action': 'deleteResult',
-            'from': 'Run',
-            repositoryName: repository.name,
-            directoryName: directory.content.date,
-        }).then(() => {
+        ApiService.deleteTaskByInputId(repository._id, directory.content.date)
+        .then(() => {
             console.log(`deleted: ${repository.name}/${directory.content.date}`);
             alert.success(`Successfully deleted!`);
             removeDirectory();

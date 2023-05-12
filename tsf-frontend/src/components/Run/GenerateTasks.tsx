@@ -20,7 +20,6 @@ export const GenerateTasks = () => {
             .then(() => {
                 console.log('[TASK] Selected Repositories sent to server!');
                 localStorage['Tasks'] = JSON.stringify(selectedRepositories);
-
             })
             .catch(response => {
                 console.log('[TASK] Error while sending selected Repositories to server!');

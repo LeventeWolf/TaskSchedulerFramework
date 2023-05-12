@@ -3,7 +3,7 @@ import Axios from "axios";
 import {RepositoryContent} from "./Repository";
 import {useAlert} from "react-alert";
 import {useDispatch} from "react-redux";
-import {updateRepository} from "../../redux/actions/rowsActions";
+import {updateInput} from "../../redux/actions/rowsActions";
 
 type Props = {
     repository: RepositoryContent;
@@ -26,7 +26,7 @@ export const RepositoryCheckbox: React.FC<Props> = ({repository, database}) => {
 
         Axios.post(url, {_id: repository._id, run: repository.run})
             .then(() => {
-                dispatch(updateRepository(repository))
+                dispatch(updateInput(repository))
             })
             .catch(response => {
                 console.log(response)

@@ -8,7 +8,7 @@ router.post("/input/init", async (req, res) => {
     res.status(200).send({message: 'Initialized database with 100 inputs!'});
 })
 
-router.get("/api/all-repositories", async (req, res) => {
+router.get("/api/all-inputs", async (req, res) => {
     const repositories = await InputDbApiService.getAll();
     const rows = makeRows(repositories);
 
@@ -35,7 +35,7 @@ router.post("/api/update-run", async (req, res) => {
         await InputDbApiService.updateRunById(req.body._id, req.body.run)
     } catch (e) {
         console.log(e.toString())
-        return res.status(400).send(e.toString());
+        return res.status(500).send(e.toString());
     }
 
     return res.status(200).send();
@@ -47,7 +47,7 @@ router.post("/api/update-script", async (req, res) => {
         res.status(200).send(input);
     } catch (err) {
         console.log(err);
-        return res.status(400).send(err.toString());
+        return res.status(500).send(err.toString());
     }
 
     return res.status(200).send();
@@ -58,7 +58,7 @@ router.post("/api/update-priority", async (req, res) => {
         await InputDbApiService.updatePriorityById(req.body._id, req.body.priority);
     } catch (e) {
         console.log(e.toString())
-        return res.status(400).send(e.toString());
+        return res.status(500).send(e.toString());
     }
 
     return res.status(200).send();

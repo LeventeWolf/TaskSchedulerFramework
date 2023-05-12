@@ -20,6 +20,10 @@ class ApiService {
     async saveTask(input: Input) {
         await Axios.post(`http://localhost:3001/Task/save`, {inputId: input._id, ...input});
     }
+
+    async deleteTaskByInputId(inputId, date) {
+        await Axios.post(`http://localhost:3001/Task/delete`, {inputId, date});
+    }
 }
 
 export default new ApiService();

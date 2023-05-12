@@ -5,13 +5,12 @@ networks:
     name: tsf
 
 services:
-#  tsf-frontend:
-#    container_name: frontend
-#    build:
-#      context: ./tsf-frontend
-#    ports:
-#      - "3000:3000"
-#    stdin_open: true
+  tsf-frontend:
+    container_name: frontend
+    build:
+      context: ./tsf-frontend
+    ports:
+      - "3000:3000"
 
   tsf-worker:
     volumes:
@@ -51,6 +50,6 @@ services:
     image: mongo:5
     container_name: mongodb
     ports:
-      - "27018:27017"
+      - "27017:27017"
     volumes:
       - /var/db:/data/db

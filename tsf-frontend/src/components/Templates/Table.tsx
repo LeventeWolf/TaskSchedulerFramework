@@ -114,7 +114,7 @@ export function countCheckboxes(rows: Row[]) {
 /**
  * Update a repository every attribute, which comes from HCA response
  * @param rows
- * @param response: response from [HCA]
+ * @param response: response from [TSF]
  * @param dispatch
  */
 export function updateRepository(rows: Row[], response: any, dispatch: any) {

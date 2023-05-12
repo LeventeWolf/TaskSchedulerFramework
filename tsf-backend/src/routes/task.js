@@ -125,6 +125,15 @@ router.get("/tasks/:inputId", async (req, res) => {
     }
 });
 
+router.post("/Task/delete", async (req, res) => {
+    const inputId = req.body.inputId;
+    const date = req.body.date;
+
+    await TaskRepository.deleteTaskByInputIdAndDate(inputId, date);
+
+    return res.status(201).send();
+});
+
 
 
 // Table
