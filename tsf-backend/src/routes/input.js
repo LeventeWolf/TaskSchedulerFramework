@@ -1,26 +1,26 @@
 const router = require("express").Router();
 
-const InputDbApiService = require("../repository/input.repository");
+const InputRepository = require("../repository/input.repository");
 
 router.post("/input/init", async (req, res) => {
-    await InputDbApiService.initInputs();
+    await InputRepository.initInputs();
 
     res.status(200).send({message: 'Initialized database with 100 inputs!'});
 })
 
 router.get("/api/all-inputs", async (req, res) => {
-    const repositories = await InputDbApiService.getAll();
+    const repositories = await InputRepository.getAll();
     const rows = makeRows(repositories);
 
     return res.status(200).send(rows);
 
-    function makeRows(repositories) {
+    function makeRows(inputs) {
         const result = []
 
-        repositories.forEach(repository => {
+        inputs.forEach(input => {
             const row = {
                 type: 'Repository',
-                content: repository
+                content: input
             }
 
             result.push(row);
@@ -32,7 +32,7 @@ router.get("/api/all-inputs", async (req, res) => {
 
 router.post("/api/update-run", async (req, res) => {
     try {
-        await InputDbApiService.updateRunById(req.body._id, req.body.run)
+        await InputRepository.updateRunById(req.body._id, req.body.run)
     } catch (e) {
         console.log(e.toString())
         return res.status(500).send(e.toString());
@@ -43,7 +43,7 @@ router.post("/api/update-run", async (req, res) => {
 
 router.post("/api/update-script", async (req, res) => {
     try {
-        const input = await InputDbApiService.updateScriptById(req.body._id, req.body.script);
+        const input = await InputRepository.updateScriptById(req.body._id, req.body.script);
         res.status(200).send(input);
     } catch (err) {
         console.log(err);
@@ -55,7 +55,7 @@ router.post("/api/update-script", async (req, res) => {
 
 router.post("/api/update-priority", async (req, res) => {
     try {
-        await InputDbApiService.updatePriorityById(req.body._id, req.body.priority);
+        await InputRepository.updatePriorityById(req.body._id, req.body.priority);
     } catch (e) {
         console.log(e.toString())
         return res.status(500).send(e.toString());
@@ -64,9 +64,19 @@ router.post("/api/update-priority", async (req, res) => {
     return res.status(200).send();
 });
 
+router.post("/create-input", async (req, res) => {
+    try {
+        await InputRepository.create(req.body.input);
+        return res.status(200).send();
+    } catch (e) {
+        console.log(e.toString())
+        return res.status(500).send(e.toString());
+    }
+});
+
 router.post("/Input", async (req, res) => {
     try {
-        await InputDbApiService.updateById(req.body._id, req.body.input);
+        await InputRepository.updateById(req.body._id, req.body.input);
         return res.status(200).send();
     } catch (e) {
         console.log(e.toString())

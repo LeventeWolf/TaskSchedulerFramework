@@ -65,24 +65,6 @@ function deleteRepositoryResultDirectory(repositoryName, directoryDate, resultDi
     console.log(`[FH] deleted ${targetDirectory}`);
 }
 
-function convertPythonDictToJSON(data) {
-    function removeCONFFromData() {
-        data = data.split('CONF = ')[1]
-    }
-
-    function removePythonCommentFromData() {
-        data = data.split('\n')
-
-        data = data.filter(row => !row.includes('#'));
-        data = data.join('\n')
-    }
-
-    removeCONFFromData()
-    removePythonCommentFromData();
-
-    return JSON.parse(data);
-}
-
 function readScriptFolders() {
     const getDirectories = source =>
         readdirSync(source, { withFileTypes: true })
@@ -176,19 +158,6 @@ function getDirectoryFiles(updatedPath) {
     return explorer;
 }
 
-function getAllFiles() {
-    const explorer = {
-        name: 'results',
-        isFolder: true,
-        isExpanded: false,
-        items: []
-    }
-
-    recursiveWalk(path.join(TSF_ABS_PATH, 'results'), explorer);
-
-    return explorer;
-}
-
 const recursiveWalk = function (dirPath, explorer) {
     const files = fs.readdirSync(dirPath, {withFileTypes: true});
 
@@ -241,7 +210,6 @@ async function readCsv(csvPath) {
 
     return result;
 }
-
 
 
 module.exports = {
